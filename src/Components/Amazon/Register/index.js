@@ -8,7 +8,6 @@ const Register = () => {
   const [role, setRole] = useState('');
 
   const onRegisterClick = () => {
-    console.log(role);
     if (!email || !password || !confirmPassword || !role || password !== confirmPassword) {
       alert("Invalid inputs");
     }
