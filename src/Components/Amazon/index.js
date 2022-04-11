@@ -1,17 +1,19 @@
-import {Provider} from "react-redux";
+import React from "react";
+import {Outlet} from "react-router-dom";
+import NavigationSidebar from "./NavigationSidebar";
 
 const Amazon = () => {
     return(
-        <Provider store={store}>
-            <div className="row mt-2">
+        <div className="container mt-2">
+            <div className="row">
                 <div className="col-2">
                     <NavigationSidebar active={"home"}/>
                 </div>
-                <div className="col-10">
+                <div className="col-8">
                     <Outlet/>
                 </div>
             </div>
-        </Provider>
+        </div>
     )
 }
 
