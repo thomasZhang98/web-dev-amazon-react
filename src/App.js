@@ -9,6 +9,7 @@ import Login from "./Components/Amazon/Login";
 import Register from "./Components/Amazon/Register"
 import Profile from "./Components/Amazon/Profile";
 import Details from "./Components/Amazon/Details";
+import React from "react";
 
 function App() {
   return (
@@ -16,6 +17,8 @@ function App() {
           <Routes>
               <Route path="/" element={<Amazon/>}>
                   <Route index
+                         element={<Home/>}/>
+                  <Route path="home"
                          element={<Home/>}/>
                   <Route path="search"
                          element={<Search/>}/>
