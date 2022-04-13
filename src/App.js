@@ -6,6 +6,7 @@ import Amazon from "./Components/Amazon";
 import Home from "./Components/Amazon/Home";
 import Search from "./Components/Amazon/Search";
 import Login from "./Components/Amazon/Login";
+import Register from "./Components/Amazon/Register"
 import Profile from "./Components/Amazon/Profile";
 import Details from "./Components/Amazon/Details";
 import React from "react";
@@ -21,6 +22,8 @@ function App() {
                          element={<Search/>}/>
                   <Route path="login"
                          element={<Login/>}/>
+                 <Route  path="register"
+                         element={<Register/>}/>
                   <Route path="profile"
                          element={<Profile/>}/>
                   <Route path="details"
