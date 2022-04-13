@@ -25,7 +25,7 @@ function App() {
                          element={<Register/>}/>
                   <Route path="profile"
                          element={<Profile/>}/>
-                  <Route path="details"
+                  <Route path="details/:id"
                          element={<Details/>}/>
               </Route>
           </Routes>

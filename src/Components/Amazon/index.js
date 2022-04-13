@@ -9,7 +9,7 @@ const Amazon = () => {
                 <div className="col-2">
                     <NavigationSidebar active={"home"}/>
                 </div>
-                <div className="col-8">
+                <div className="col-10">
                     <Outlet/>
                 </div>
             </div>
