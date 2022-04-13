@@ -8,6 +8,7 @@ import Search from "./Components/Amazon/Search";
 import Login from "./Components/Amazon/Login";
 import Profile from "./Components/Amazon/Profile";
 import Details from "./Components/Amazon/Details";
+import React from "react";
 
 function App() {
   return (

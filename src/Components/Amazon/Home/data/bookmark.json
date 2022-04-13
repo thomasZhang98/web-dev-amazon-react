@@ -1,0 +1,32 @@
+[
+  {
+    "pimg": "https://m.media-amazon.com/images/I/71CA7BPK3VL._SY879_.jpg",
+    "company": "BLK & Bold Specialty Beverages",
+    "productName": "BLK & Bold | BLK & Bold Coffee Blend",
+    "price": "$10.96 ($0.91 / Ounce)"
+  },
+  {
+    "pimg": "https://m.media-amazon.com/images/I/71IdhUF4DjS._AC_SX679_.jpg",
+    "company": "MIATONE",
+    "productName": "Portable Bluetooth Speaker, Wireless IP67 Waterproof Outdoor Speaker with Subwoofer",
+    "price": "$39.59"
+  },
+  {
+    "pimg": "https://m.media-amazon.com/images/I/410eivKV4DL._AC_SX679_.jpg",
+    "company": "Apple",
+    "productName": "Apple EarPods with 3.5mm Headphone Plug - White",
+    "price": "$14.49"
+  },
+  {
+    "pimg": "https://m.media-amazon.com/images/I/71p4j5QKn+L._AC_SX679_.jpg",
+    "company": "Turbo Microfiber",
+    "productName": "Turbo Microfiber Mop Floor Cleaning System - 18-inch Dust Mop with 4 Reusable Pads for Hardwood and Tile",
+    "price": "$39.99"
+  },
+  {
+    "pimg": "https://m.media-amazon.com/images/I/715SJq04gJL._AC_UX695_.jpg",
+    "company": "Crocs",
+    "productName": "Crocs Unisex-Child Toddler Classic Clog",
+    "price": "$34.95"
+  }
+]
