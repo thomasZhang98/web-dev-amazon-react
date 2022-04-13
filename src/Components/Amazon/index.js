@@ -3,6 +3,7 @@ import {Outlet} from "react-router-dom";
 import NavigationSidebar from "./NavigationSidebar";
 
 const Amazon = () => {
+
   return(
       <div className="container mt-2">
         <div className="row">
