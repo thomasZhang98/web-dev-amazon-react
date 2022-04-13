@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import products from "../data/testProducts.json";
 import {useParams} from "react-router-dom";
+import "../index.css";
 
 const Details = () => {
     const {id} = useParams()
@@ -10,13 +11,14 @@ const Details = () => {
         ratingSum += product.comments[i].rating;
     }
     const averageRating = ratingSum / product.comments.length;
+    const [ratingVal, setRatingVal] = useState(5);
 
     return (
         <div className="mt-2">
             <div className="d-flex">
                 <img src={product.image} className="w-25"/>
                 <div className="float-start ms-3 w-100">
-                    <h2>{product.name}</h2>
+                    <h3>{product.name}</h3>
                     <h5>{product.brand}</h5>
                     <h5>${product.price}</h5>
                     <h5>Rating: {averageRating}/5</h5>
@@ -32,8 +34,11 @@ const Details = () => {
             <div className="container">
                 <span className="empty-stars"></span>
             </div>
-            <textarea placeholder={"Put down your comments"} className="form-control"></textarea>
-            <button className="btn btn-primary mt-2">Submit</button>
+            <textarea placeholder={"Put down your comment"} className="form-control"></textarea>
+            <label className="text-white height-20px" id="rating">Rate: </label>
+            <input type="range" className="form-range w-25 ms-2" min="0" max="5" step="1" id="rating" onChange={e => setRatingVal(e.target.value)}/>
+            <span className="text-white ms-2 height-20px">{ratingVal}/5</span>
+            <div><button className="btn btn-primary mt-2">Submit</button></div>
 
             <h5 className="mt-3">Comments:</h5>
             <div>
