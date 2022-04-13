@@ -1,0 +1,49 @@
+.wd-flex{
+  display: flex;
+  align-items: center;
+}
+
+.wd-input{
+  width: 760px;
+  padding: 10px;
+  font-size: 15px;
+  border:none;
+  outline: none;
+  color:#000000;
+}
+
+
+
+
+.wd-left-btn{
+  padding:10px 10px;
+  color: #6c757d;
+  font-size: 15px;
+  border: none;
+  width: 15%;
+  cursor: pointer;
+  background: #dddddd;
+  border-radius: 5px 0 0 5px;
+}
+
+.wd-right-btn{
+  padding:10px 10px;
+  background: #FF9900;
+
+  font-size: 15px;
+  border: none;
+  border-radius:0 5px 5px 0 ;
+  width: 15%;
+  cursor: pointer;
+}
+
+.wd-address-btn{
+  background: transparent;
+  font-size: 14px;
+  border: none;
+  color: #dddddd;
+}
+
+.wd-search{
+  color: black;
+}
