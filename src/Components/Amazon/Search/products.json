@@ -1,0 +1,17 @@
+[
+  {
+    "id": "1",
+    "name": "Macbook Pro",
+    "image": "/images/macbook.jpg"
+  },
+  {
+    "id": "2",
+    "name": "Casio Privia PX-S1000",
+    "image": "/images/keyboard.webp"
+  },
+  {
+    "id": "3",
+    "name": "Ninja Blender",
+    "image": "/images/blender.jpeg"
+  }
+]

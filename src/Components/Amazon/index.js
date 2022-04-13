@@ -4,7 +4,7 @@ import NavigationSidebar from "./NavigationSidebar";
 
 const Amazon = () => {
     return(
-        <div className="container mt-2">
+        <div className="container mt-2 mb-2">
             <div className="row">
                 <div className="col-2">
                     <NavigationSidebar active={"home"}/>
