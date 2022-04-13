@@ -18,6 +18,8 @@ function App() {
               <Route path="/" element={<Amazon/>}>
                   <Route index
                          element={<Home/>}/>
+                  <Route path="home"
+                         element={<Home/>}/>
                   <Route path="search"
                          element={<Search/>}/>
                   <Route path="login"
