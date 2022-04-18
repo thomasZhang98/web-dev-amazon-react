@@ -1,3 +1,17 @@
 .height-20px {
     font-size: 25px;
 }
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    object-fit: cover;
+}
+
+.avatar-lg {
+    width: 200px;
+    height: 200px;
+    border-radius: 24px;
+    object-fit: cover;
+}

@@ -12,28 +12,31 @@ import Details from "./Components/Amazon/Details";
 import React from "react";
 
 function App() {
-  return (
-      <BrowserRouter>
-          <Routes>
-              <Route path="/" element={<Amazon/>}>
-                  <Route index
-                         element={<Home/>}/>
-                  <Route path="home"
-                         element={<Home/>}/>
-                  <Route path="search"
-                         element={<Search/>}/>
-                  <Route path="login"
-                         element={<Login/>}/>
-                 <Route  path="register"
-                         element={<Register/>}/>
-                  <Route path="profile"
-                         element={<Profile/>}/>
-                  <Route path="details/:id"
-                         element={<Details/>}/>
-              </Route>
-          </Routes>
-      </BrowserRouter>
-  );
+    return (
+          <BrowserRouter>
+              <Routes>
+                  <Route path="/" element={<Amazon/>}>
+                      <Route index
+                             element={<Home/>}/>
+                      <Route path="home"
+                             element={<Home/>}/>
+                      <Route path="search"
+                             element={<Search/>}/>
+                      <Route path="login"
+                             element={<Login/>}/>
+                      <Route path="register"
+                             element={<Register/>}/>
+                      <Route path="profile"
+                             element={<Profile/>}>
+                          <Route path=":id"
+                                 element={<Profile/>}/>
+                      </Route>
+                      <Route path="details/:id"
+                             element={<Details/>}/>
+                  </Route>
+              </Routes>
+          </BrowserRouter>
+    );
 }
 
 export default App;
