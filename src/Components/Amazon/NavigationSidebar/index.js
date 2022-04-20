@@ -4,7 +4,6 @@ import {Link} from "react-router-dom";
 const NavigationSidebar = ({active = 'home'}) => {
     return (
         <>
-
             <div className="list-group mb-2 mt-2">
                 <i className="list-group-item"><i className="fab fa-amazon"/></i>
                 <Link to="/" className={`list-group-item list-group-item-action d-flex align-items-center ${active === 'home'?'active':''}`}>
