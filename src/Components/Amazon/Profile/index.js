@@ -38,14 +38,13 @@ const Profile = () => {
                         {currentUid === targetUid ?
                             <div>
                                 <input type="text" value={username} id="username" onChange={e => setUsername(e.target.value)}></input>
-                                <button className="btn btn-primary ms-2">Update</button>
                             </div> :
                             <div>{user.username}</div>}
                     </div>
                 </div>
-                <div className="float-end text-center">
+                <div className="float-end text-center ms-2">
                     <img src={image} className="avatar-lg"/>
-                    <button className="btn btn-primary mt-2">Update</button>
+                    {currentUid === targetUid ? <button className="btn btn-primary mt-2">Update</button>: <div></div>}
                 </div>
             </div>
             <br/>
