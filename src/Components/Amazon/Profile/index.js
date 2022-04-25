@@ -38,6 +38,7 @@ const Profile = () => {
                         {currentUid === targetUid ?
                             <div>
                                 <input type="text" value={username} id="username" onChange={e => setUsername(e.target.value)}></input>
+                                <button className="btn btn-primary ms-2">Update</button>
                             </div> :
                             <div>{user.username}</div>}
                     </div>
