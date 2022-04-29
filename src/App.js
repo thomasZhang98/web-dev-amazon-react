@@ -14,7 +14,7 @@ import React from "react";
 function App() {
   return (
     <BrowserRouter>
-      <div className="container w-100 m-2">
+      <div className="container w-100">
         <Routes>
           <Route path="/" element={<Amazon />}>
             <Route index element={<Home />} />
