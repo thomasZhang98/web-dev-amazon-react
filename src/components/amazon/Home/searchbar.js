@@ -11,7 +11,7 @@ const Searchbar = () => {
             All <i className="fa-solid fa-caret-down ">  </i>
           </button>
 
-          <button type="button" className="wd-left-btn wd-abtn  d-xl-none">
+          <button type="button" className="wd-left-btn wd-abtn d-xl-none">
             <i className="fa-solid fa-caret-down "/>
           </button>
           <input type="input" className="wd-input" placeholder="Search..."/>
