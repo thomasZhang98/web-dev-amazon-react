@@ -26,11 +26,11 @@ const Profile = () => {
           <h3>Profile</h3>
           <h5>Public Information</h5>
           <div className="list-group-item top-border-rounded">
-            <div className="text-white fw-bold">Role: </div>
+            <div className="fw-bold">Role: </div>
             <div>{user.role}</div>
           </div>
           <div className="list-group-item">
-            <label className="text-white fw-bold" htmlFor="username">
+            <label className="fw-bold" htmlFor="username">
               Username:{" "}
             </label>
             {currentUid === targetUid ? (
@@ -64,11 +64,11 @@ const Profile = () => {
           <div className="list-group">
             <h5>Personal Information</h5>
             <div className="list-group-item top-border-rounded">
-              <label className="text-white fw-bold">uid: </label>
+              <label className="fw-bold">uid: </label>
               <div>{user.uid}</div>
             </div>
             <div className="list-group-item">
-              <label className="text-white fw-bold" for="pw">
+              <label className="fw-bold" for="pw">
                 Password:
               </label>
               <div>
@@ -82,7 +82,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="list-group-item">
-              <label className="text-white fw-bold" for="fn">
+              <label className="fw-bold" for="fn">
                 First Name:
               </label>
               <div>
@@ -96,7 +96,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="list-group-item">
-              <label className="text-white fw-bold" for="ln">
+              <label className="fw-bold" for="ln">
                 Last Name:
               </label>
               <div>
@@ -110,7 +110,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="list-group-item">
-              <label className="text-white fw-bold" for="pn">
+              <label className="fw-bold" for="pn">
                 Phone Number:
               </label>
               <div>
