@@ -2,6 +2,7 @@ import React from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import SearchBar from "../Home/searchbar";
 import products from "./products";
 
 const Search = () => {
@@ -27,20 +28,7 @@ const Search = () => {
   return (
     <>
       <div className="row position-relative mt-2">
-        <div className="col-11 position-relative">
-          <input
-            className="form-control rounded-pill"
-            type="text"
-            placeholder="      Search Amazon"
-            ref={productSearchRef}
-          />
-          <i className="fa fa-search position-absolute top-50 translate-middle-y ms-2"></i>
-        </div>
-        <div className="col-1">
-          <button onClick={searchByProduct} className="btn btn-primary">
-            Search
-          </button>
-        </div>
+        <SearchBar />
         <div className="mt-3">
           {products.map((product) => (
             <li className="list-group-item">
