@@ -10,7 +10,7 @@ const BookmarkListItem = ({
   },
 }) => {
   return (
-    <li className="list-group-item wd-border-black">
+    <li className="list-group-item">
       <div className="row align-items-center">
         <div className="col-xxl-2 col-xl-2 col-md-3">
           <img

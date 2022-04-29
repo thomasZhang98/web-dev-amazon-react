@@ -6,7 +6,7 @@ const BookmarkList = () => {
   const bookmarks = useSelector((state) => state.bookmarks);
   return (
     <ul className="list-group mt-2">
-      <li className="list-group-item wd-border-black">
+      <li className="list-group-item">
         <b>Bookmark</b>
       </li>
       {bookmarks.map((bookmark) => {

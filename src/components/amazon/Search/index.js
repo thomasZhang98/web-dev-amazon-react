@@ -31,7 +31,7 @@ const Search = () => {
         <SearchBar />
         <div className="mt-3">
           {products.map((product) => (
-            <li className="list-group-item">
+            <li className="card mb-3 p-2">
               <Link to={`/details/${product.id}`}>
                 <img
                   src={product.image}

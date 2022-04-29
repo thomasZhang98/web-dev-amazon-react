@@ -25,7 +25,7 @@ const Profile = () => {
         <div className="float-start w-100 list-group">
           <h3>Profile</h3>
           <h5>Public Information</h5>
-          <div className="list-group-item">
+          <div className="list-group-item top-border-rounded">
             <div className="text-white fw-bold">Role: </div>
             <div>{user.role}</div>
           </div>
@@ -63,7 +63,7 @@ const Profile = () => {
         <div>
           <div className="list-group">
             <h5>Personal Information</h5>
-            <div className="list-group-item">
+            <div className="list-group-item top-border-rounded">
               <label className="text-white fw-bold">uid: </label>
               <div>{user.uid}</div>
             </div>
@@ -127,10 +127,10 @@ const Profile = () => {
           <br />
 
           {user.role === "Buyer" && (
-            <div className="list-group mt-2">
+            <div className="list-group mt-2 mb-4">
               <h5>Orders</h5>
               {user.orders.map((o) => (
-                <div className="list-group-item">
+                <div className="list-group-item top-border-rounded">
                   <div className="fw-bold">Order ID: </div>
                   <div>{o.oid}</div>
                   {o.products.map((p) => (
@@ -150,7 +150,7 @@ const Profile = () => {
             <div className="list-group mt-2">
               <h5>Bookmarks</h5>
               {user.bookmarks.map((b) => (
-                <div className="list-group-item">
+                <div className="list-group-item top-border-rounded">
                   <div className="fw-bold">ProductID: </div>
                   <div>{b}</div> //TODO: Should dynamically retrieve product
                   from database and display relevant info.
