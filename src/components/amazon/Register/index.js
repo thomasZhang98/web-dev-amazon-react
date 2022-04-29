@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { ADMIN_ROLE } from "../reducers/user-reducer";
 import userRoles from "../data/userRoles.json";
 import adminLevels from "../data/adminLevels.json";
 
@@ -78,7 +79,7 @@ const Register = () => {
               {role.name}
             </label>
           ))}
-          {role === "ADMIN" ? (
+          {role === ADMIN_ROLE ? (
             <div className="d-flex flex-column align-content-start">
               <div className="my-2"> Admin Level:</div>
               {adminLevels.map((level) => (

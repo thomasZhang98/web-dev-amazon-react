@@ -3,37 +3,25 @@ const API_BASE = process.env.REACT_APP_API_BASE;
 const ORDERS_API = `${API_BASE}/orders`;
 const BUYERS_API = `${API_BASE}/buyers`;
 
-export const findOrder = async (orderNumber) => {
-  const response = await axios.get(`${ORDERS_API}/${orderNumber}`);
-  const orders = response.data;
-  return orders;
+export const findOrder = async (order) => {
+  const response = await axios.get(`${ORDERS_API}/${order}`);
+  const foundOrder = response.data;
+  return foundOrder;
 };
-export const findOrderItem = async (orderItem) => {
-  const response = await axios.get(`${ORDERS_API}/item/${orderItem._id}`);
-  const item = response.data;
-  return item;
-};
-export const findOrderByBuyerId = async (buyerId) => {
+export const findOrdersByBuyerId = async (buyerId) => {
   const response = await axios.get(`${BUYERS_API}/${buyerId}/orders`);
   const orders = response.data;
   return orders;
 };
-export const createOrderItem = async (orderItem) => {
-  const response = await axios.post(`${ORDERS_API}/item`, orderItem);
+export const createOrder = async (order) => {
+  const response = await axios.post(`${ORDERS_API}`, order);
   return response.data;
 };
-export const updateOrderItem = async (orderItem) => {
-  const response = await axios.put(
-    `${ORDERS_API}/item/${orderItem._id}`,
-    orderItem
-  );
+export const updateOrder = async (order) => {
+  const response = await axios.put(`${ORDERS_API}/${order._id}`, order);
   return response.data;
 };
-export const deleteOrderItem = async (orderItem) => {
-  const response = await axios.delete(`${ORDERS_API}/item/${orderItem._id}`);
-  return response.data;
-};
-export const deleteOrder = async (orderNumber) => {
-  const response = await axios.delete(`${ORDERS_API}/${orderNumber}`);
+export const deleteOrder = async (order) => {
+  const response = await axios.delete(`${ORDERS_API}/${order}`);
   return response.data;
 };

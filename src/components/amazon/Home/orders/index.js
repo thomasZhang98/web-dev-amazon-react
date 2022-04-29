@@ -1,21 +1,23 @@
 import React from "react";
-import "./order.css"
+import "./order.css";
 import OrderItem from "./order-item";
-import {useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 
 const OrderList = () => {
-  const order = useSelector((state) => state.order);
+  const user = useSelector((state) => state.user);
+  const orders = useSelector((state) => state.orders);
   return (
-      <ul className="list-group mt-2 mb-2">
+    <div>
+      {user.loggedIn && (
+        <ul className="list-group mt-2 mb-2">
           <b className="wd-order">Your Orders</b>
-
-        {order.map(order => {
-          return (
-              <OrderItem key={order.orderNumber} p={order}/>
-          );
-        })}
-
-      </ul>
+          {orders.map((order) => {
+            return <OrderItem key={order._id} order={order} />;
+          })}
+        </ul>
+      )}
+      {!user.loggedIn && <b className="wd-order">Featured Products</b>}
+    </div>
   );
-}
+};
 export default OrderList;
