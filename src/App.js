@@ -1,4 +1,4 @@
-import "./vendors/bootstrap/bootstrap.min.css";
+import "./vendors/bootstrap/css/bootstrap.min.css";
 import "./vendors/fontawesome/css/all.min.css";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -14,19 +14,21 @@ import React from "react";
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Amazon />}>
-          <Route index element={<Home />} />
-          <Route path="home" element={<Home />} />
-          <Route path="search" element={<Search />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-          <Route path="profile" element={<Profile />}>
-            <Route path=":id" element={<Profile />} />
+      <div className="container w-100 m-2">
+        <Routes>
+          <Route path="/" element={<Amazon />}>
+            <Route index element={<Home />} />
+            <Route path="home" element={<Home />} />
+            <Route path="search" element={<Search />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="profile" element={<Profile />}>
+              <Route path=":id" element={<Profile />} />
+            </Route>
+            <Route path="details/:id" element={<Details />} />
           </Route>
-          <Route path="details/:id" element={<Details />} />
-        </Route>
-      </Routes>
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }

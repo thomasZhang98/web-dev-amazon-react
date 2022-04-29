@@ -4,7 +4,7 @@ import "./order.css";
 const OrderItem = ({ order }) => {
   const orderDate = new Date(order.orderTime).toLocaleDateString("en-us");
   return (
-    <li className="list-group-item mt-2 mb-2 wd-border">
+    <li key={order._id} className="card my-2 p-2">
       <div className="row align-items-top">
         <div className="col-3 wd-font-color d-none d-lg-block">
           ORDER PLACED <br />

@@ -20,8 +20,8 @@ const Login = () => {
   };
 
   return (
-    <div className="row justify-content-center">
-      <div className="card d-flex flex-column align-items-center mt-2 col-11 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+    <div className="row justify-content-center px-2">
+      <div className="card d-flex flex-column align-items-center mt-2">
         <div className="d-flex flex-column align-content-start">
           <label className="mt-4 mb-2" htmlFor="login-username">
             Username:{" "}

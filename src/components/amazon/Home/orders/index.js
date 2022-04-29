@@ -9,12 +9,14 @@ const OrderList = () => {
   return (
     <div>
       {user.loggedIn && (
-        <ul className="list-group mt-2 mb-2">
+        <div>
           <b className="wd-order">Your Orders</b>
-          {orders.map((order) => {
-            return <OrderItem key={order._id} order={order} />;
-          })}
-        </ul>
+          <ul className="list-group my-2">
+            {orders.map((order) => {
+              return <OrderItem key={order._id} order={order} />;
+            })}
+          </ul>
+        </div>
       )}
       {!user.loggedIn && <b className="wd-order">Featured Products</b>}
     </div>
