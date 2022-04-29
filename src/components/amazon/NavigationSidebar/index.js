@@ -14,8 +14,6 @@ const NavigationSidebar = ({active = 'home'}) => {
                   <i className="fa-solid fa-magnifying-glass"/><span className="d-none d-xl-block ms-1"> Search</span></Link>
                 <Link to="/login" className={`list-group-item list-group-item-action d-flex align-items-center ${active === 'login'?'active':''}`}>
                     <i className="fa-solid fa-arrow-right-to-bracket"/><span className="d-none d-xl-block ms-1"> Login</span></Link>
-                <Link to="/details/123" className={`list-group-item list-group-item-action d-flex align-items-center ${active === 'details'?'active':''}`}>
-                    <i className="fa-solid fa-circle-info"/><span className="d-none d-xl-block ms-1"> Test Details</span></Link>
             </div>
         </>
     )

@@ -1,52 +1,59 @@
-import React from "react";
-import { useRef } from "react";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import SearchBar from "../Home/searchbar";
-import products from "./products";
+import React, {useState, useRef, useEffect} from "react";
+import axios from 'axios';
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
+import Pre from "../../../utils/pre"
 
 const Search = () => {
-  const productSearchRef = useRef();
-  // const { productSearch } = useParams();
-  // const navigate = useNavigate();
-  // const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([])
+  const [sentRequest, setSentRequest] = useState(false)
+  const {searchString} = useParams()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const search_url = 'https://api.rainforestapi.com/request?api_key=8F0CEDE12EFA49D6BA05089B2EB4FFBD&type=search&amazon_domain=amazon.com&search_term'
+  const searchProductRef = useRef();
 
-  // const searchUrl = "https://www.omdbapi.com/?apikey=852159f0";
-
-  const searchByProduct = async () => {
-    //   const searchString =
-    //     productSearchRef.current.value || productSearch || "mac";
-    // const response = await axios.get(`${searchUrl}&s=${searchString}`);
-    // setProducts(response.data.Search);
-    // productSearchRef.current.value = searchString;
-    // navigate(`/search/${searchString}`);
+  const searchProducts = async () => {
+    setSentRequest(true)
+    const response = await axios.get(`${search_url}=${searchProductRef.current.value}`);
+    setProducts(response.data.search_results);
+    navigate(`/search/${searchProductRef.current.value}`)
+    console.log('here')
   };
+
   useEffect(() => {
-    searchByProduct();
-  }, []);
+    if (searchString) {
+      searchProductRef.current.value = searchString
+      searchProducts()
+    }
+  })
 
   return (
-    <>
-      <div className="row position-relative mt-2">
-        <SearchBar />
-        <div className="mt-3">
-          {products.map((product) => (
-            <li className="card mb-3 p-2">
-              <Link to={`/details/${product.id}`}>
-                <img
-                  src={product.image}
-                  className="me-4"
-                  height={100}
-                  width={100}
-                  alt="..."
-                />
-                {product.name}
-              </Link>
-            </li>
-          ))}
+      <>
+        <div className="row position-relative mt-2">
+          <div className="mb-2 w-100 d-flex">
+            <i className="fa-solid fa-search position-absolute pt-2 mt-1 ms-3"></i>
+            <input className="border form-control rounded-pill w-100 pt-1 pb-1 ps-5 me-2" type="text" placeholder="Search Amazon" ref={searchProductRef}/>
+            <button onClick={searchProducts} className="btn btn-primary rounded-pill">Search</button>
+          </div>
+          {products.length === 0 && sentRequest ? <div className="text-center"><i className="fas fa-spinner fa-pulse me-2"></i>Loading...</div> : ''}
+
+          <div className="mt-3 list-group">
+            {products.map((product) => (
+                <li className="list-group-item">
+                  <Link to={`/details/${product.asin}`} className="text-decoration-none d-flex align-items-start">
+                    <img
+                        src={product.image}
+                        className="me-4"
+                        alt="image"
+                        width="200"
+                    />{product.title}
+                    {product.price}
+                  </Link>
+                </li>
+            ))}
+          </div>
         </div>
-      </div>
-    </>
+      </>
   );
 };
 
