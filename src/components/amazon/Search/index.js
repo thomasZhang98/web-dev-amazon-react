@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from "react";
 import axios from 'axios';
 import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
-import Pre from "../../../utils/pre.js"
+import Pre from "../../../utils/pre"
 
 const Search = () => {
   const [products, setProducts] = useState([])
@@ -40,7 +40,7 @@ const Search = () => {
           <div className="mt-3 list-group">
             {products.map((product) => (
                 <li className="list-group-item">
-                  <Link to={`/details/${product.asin}`} className="text-decoration-none text-white d-flex align-items-start">
+                  <Link to={`/details/${product.asin}`} className="text-decoration-none d-flex align-items-start">
                     <img
                         src={product.image}
                         className="me-4"
@@ -52,9 +52,6 @@ const Search = () => {
                 </li>
             ))}
           </div>
-          <Pre obj={searchString}/>
-          <Pre obj={products}/>
-          <Pre obj={sentRequest}/>
         </div>
       </>
   );

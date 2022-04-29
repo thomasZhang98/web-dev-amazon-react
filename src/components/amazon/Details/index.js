@@ -105,16 +105,14 @@ const Details = () => {
 
                     <h5>Make a Comment:</h5>
                     <textarea placeholder={"Put down your comment"} className="form-control"></textarea>
-                    <label className="text-white height-20px" id="rating">Rate: </label>
+                    <label className="height-20px" id="rating">Rate: </label>
                     <input type="range" className="form-range w-25 ms-2 mt-2 pt-2" min="0" max="5" step="1" id="rating" onChange={e => setRatingVal(e.target.value)}/>
-                    <span className="text-white ms-2 height-20px">{ratingVal}/5</span>
+                    <span className="ms-2 height-20px">{ratingVal}/5</span>
                     <button className="btn btn-primary mt-2 float-end">Submit</button>
 
                     <h5 className="mt-3">Comments:</h5>
                 </>
             }
-            <Pre obj={productDetails}/>
-            <Pre obj={ourProductDetails}/>
         </div>
     )
 }
