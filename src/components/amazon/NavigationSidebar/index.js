@@ -6,7 +6,7 @@ const NavigationSidebar = ({active = 'home'}) => {
 
     return (
         <>
-            <div className="list-group mb-2 mt-2">
+            <div className="wd-list-group-mine list-group mb-2 mt-2">
                 <i className="list-group-item"><i className="fab fa-amazon"/></i>
                 <Link to="/" className={`list-group-item.active list-group-item list-group-item-action d-flex align-items-center ${pathname === '/'?'active':''}`} >
                   <i className="fa-solid fa-house"/> <span className="d-none d-xl-block ms-1"> Home</span></Link>
