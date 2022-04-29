@@ -22,6 +22,8 @@ function App() {
                              element={<Home/>}/>
                       <Route path="search"
                              element={<Search/>}/>
+                      <Route path="search/:searchString"
+                             element={<Search/>}/>
                       <Route path="login"
                              element={<Login/>}/>
                       <Route path="register"
@@ -31,7 +33,7 @@ function App() {
                           <Route path=":id"
                                  element={<Profile/>}/>
                       </Route>
-                      <Route path="details/:id"
+                      <Route path="details/:asin"
                              element={<Details/>}/>
                   </Route>
               </Routes>
