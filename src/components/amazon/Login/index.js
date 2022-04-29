@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import userRoles from "../data/userRoles.json";
+import { useDispatch } from "react-redux";
+import { findOrderByBuyerId } from "../actions/orders-actions";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onLoginClick = () => {
+  const onLoginClick = async () => {
     if (email && password && role) {
-      alert(`${role} Logged In with email: ${email} and password: ${password}`);
+      // TODO: replace mock call with actual buyerId
+      await findOrderByBuyerId(dispatch, 123);
       navigate("/");
     }
   };
