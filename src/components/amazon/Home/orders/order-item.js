@@ -1,36 +1,35 @@
 import React from "react";
-import "./order.css";
 
 const OrderItem = ({ order }) => {
   const orderDate = new Date(order.orderTime).toLocaleDateString("en-us");
   return (
     <li key={order._id} className="card my-2 p-2">
       <div className="row align-items-top">
-        <div className="col-3 wd-font-color d-none d-lg-block">
-          ORDER PLACED <br />
+        <div className="col-3 d-none d-lg-block">
+          ORDER PLACED: <br />
           <b>{orderDate}</b>
         </div>
-        <div className="col-4 wd-font-color d-lg-none">
-          ORDER PLACED <br />
+        <div className="col-4 d-lg-none">
+          ORDER PLACED: <br />
           <b>{orderDate}</b>
         </div>
-        <div className="col-3 wd-font-color d-none d-lg-block">
-          TOTAL <br />
-          <b>{order.price}</b>
+        <div className="col-3 d-none d-lg-block">
+          TOTAL PRICE: <br />
+          <b>${order.price}</b>
         </div>
-        <div className="col-4 wd-font-color d-lg-none">
-          TOTAL <br />
-          <b>{order.price}</b>
+        <div className="col-4 d-lg-none">
+          TOTAL PRICE: <br />
+          <b>${order.price}</b>
         </div>
-        <div className="col-3 wd-font-color d-none d-lg-block">
-          SHIP TO <br />
+        <div className="col-3 d-none d-lg-block">
+          SHIP TO: <br />
           <b>{order.shippingAddress}</b>
         </div>
-        <div className="col-4 wd-font-color d-lg-none">
-          SHIP TO <br />
+        <div className="col-4 d-lg-none">
+          SHIP TO: <br />
           <b>{order.shippingAddress}</b>
         </div>
-        <div className="col-3 wd-font-color d-none d-lg-block">
+        <div className="col-3 d-none d-lg-block">
           Order Number:
           <br />
           <b>{order.productId}</b>

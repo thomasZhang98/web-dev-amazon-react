@@ -1,18 +1,16 @@
 import React from "react";
 import "./home.css";
-import SearchBar from "./searchbar";
 import OrderList from "./orders";
-import {useProfile} from "../../../contexts/profile-context";
+import ProductList from "./products";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  const {profile} = useProfile();
-  if (profile) {
+  const user = useSelector((state) => state.user);
 
-  }
   return (
-    <div className="row">
-      <SearchBar />
-      <OrderList />
+    <div className="mt-2">
+      {user.loggedIn && <OrderList />}
+      {!user.loggedIn && <ProductList />}
     </div>
   );
 };
