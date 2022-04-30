@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import NavigationSidebar from "./NavigationSidebar";
 import bookmarksReducer from "./reducers/bookmarks-reducer";
+import productsReducer from "./reducers/products-reducer";
 import ordersReducer from "./reducers/orders-reducer";
 import userReducer from "./reducers/user-reducer";
 import { combineReducers, createStore } from "redux";
@@ -10,6 +11,7 @@ import BookmarkList from "./Bookmarks";
 
 const reducer = combineReducers({
   bookmarks: bookmarksReducer,
+  products: productsReducer,
   orders: ordersReducer,
   user: userReducer,
 });
@@ -25,14 +27,6 @@ const Amazon = () => {
           <Outlet />
         </div>
         <div className="d-none d-lg-block col-lg-4">
-          <b>Address:</b>
-          <Link to="/profile">
-            <button type="button" className="wd-address-btn">
-              360 Huntington Ave,
-              <br />
-              Boston, MA 02115
-            </button>
-          </Link>
           <BookmarkList />
         </div>
       </div>
