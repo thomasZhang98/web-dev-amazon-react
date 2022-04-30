@@ -1,22 +1,21 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
-import users from "../data/Profile/test-profiles.json";
+import React, {useState} from "react";
+import {useParams} from "react-router-dom";
 import "../index.css";
+import {useProfile} from "../../../contexts/profile-context";
 
 const Profile = () => {
-  const currentUid = "111"; // TODO: This should be updated to be dynamic!!!
+  const {profile} = useProfile();
+  const currentUid = profile._id; // TODO: This should be updated to be dynamic!!!
   const { id } = useParams();
   const targetUid = typeof id === "undefined" ? currentUid : id;
-  const currUser = users.find((u) => u.uid === currentUid);
-  const user = users.find((u) => u.uid === targetUid);
-  const [username, setUsername] = useState(user.username);
+  const user = profile; // TODO: change
+  const [username, setUsername] = useState(user.userName);
   const [password, setPassword] = useState(user.password);
-  const [first_name, setFirstName] = useState(user.first_name);
-  const [last_name, setLastName] = useState(user.last_name);
-  const [phone_number, setPhoneNumber] = useState(user.phone_number);
-  const image = typeof id === "undefined" ? user.image : "../" + user.image;
+  const [first_name, setFirstName] = useState(user.firstName);
+  const [last_name, setLastName] = useState(user.lastName);
+  const [phone_number, setPhoneNumber] = useState(user.phoneNumber);
 
-  if (currUser.role === "Buyer" && user.role === "Admin") {
+  if (profile.role === "BUYER" && user.role === "ADMIN") {
     return <h1 className="mt-2">No access to admin profile</h1>;
   }
   return (
@@ -24,6 +23,7 @@ const Profile = () => {
       <div className="d-flex">
         <div className="float-start w-100 wd-list-group-mine">
           <h3>Profile</h3>
+          {JSON.stringify(profile)}
           <h5>Public Information</h5>
           <div className="list-group-item top-border-rounded">
             <div className="fw-bold">Role: </div>
@@ -48,14 +48,6 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <div className="float-end text-center ms-2">
-          <img src={image} className="avatar-lg" />
-          {currentUid === targetUid ? (
-            <button className="btn btn-primary mt-2">Update</button>
-          ) : (
-            <div></div>
-          )}
-        </div>
       </div>
       <br />
 
@@ -65,7 +57,7 @@ const Profile = () => {
             <h5>Personal Information</h5>
             <div className="list-group-item top-border-rounded">
               <label className="fw-bold">uid: </label>
-              <div>{user.uid}</div>
+              <div>{user._id}</div>
             </div>
             <div className="list-group-item">
               <label className="fw-bold" for="pw">
@@ -139,8 +131,7 @@ const Profile = () => {
                       <div>{p}</div>
                     </div>
                   ))}{" "}
-                  //TODO: Should dynamically retrieve product from database and
-                  display relevant info.
+                  //TODO: Should dynamically retrieve product from database and display relevant info.
                 </div>
               ))}
             </div>
