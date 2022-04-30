@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const BookmarkList = () => {
   const bookmarks = useSelector((state) => state.bookmarks);
   return (
-    <ul className="list-group mt-2">
+    <ul className="wd-list-group-mine list-group mt-2">
       <li className="list-group-item">
         <b>Bookmark</b>
       </li>

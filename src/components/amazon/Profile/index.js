@@ -22,7 +22,7 @@ const Profile = () => {
   return (
     <div className="mt-2">
       <div className="d-flex">
-        <div className="float-start w-100 list-group">
+        <div className="float-start w-100 wd-list-group-mine">
           <h3>Profile</h3>
           <h5>Public Information</h5>
           <div className="list-group-item top-border-rounded">
@@ -61,7 +61,7 @@ const Profile = () => {
 
       {currentUid === targetUid ? (
         <div>
-          <div className="list-group">
+          <div className="wd-list-group-mine">
             <h5>Personal Information</h5>
             <div className="list-group-item top-border-rounded">
               <label className="fw-bold">uid: </label>
@@ -127,7 +127,7 @@ const Profile = () => {
           <br />
 
           {user.role === "Buyer" && (
-            <div className="list-group mt-2 mb-4">
+            <div className="wd-list-group-mine mt-2 mb-4">
               <h5>Orders</h5>
               {user.orders.map((o) => (
                 <div className="list-group-item top-border-rounded">
@@ -147,7 +147,7 @@ const Profile = () => {
           )}
 
           {user.role === "Buyer" && (
-            <div className="list-group mt-2">
+            <div className="wd-list-group-mine mt-2">
               <h5>Bookmarks</h5>
               {user.bookmarks.map((b) => (
                 <div className="list-group-item top-border-rounded">
