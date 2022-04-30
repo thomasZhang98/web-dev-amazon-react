@@ -8,14 +8,6 @@
   color: black;
 }
 
-.wd-border-color {
-  border-color: #dee2e6;
-}
-
-.wd-list-group-mine .list-group-item {
-  border-color: #dee2e6;
-}
-
 .list-group-item.active {
   z-index: 2;
   color: #fff;

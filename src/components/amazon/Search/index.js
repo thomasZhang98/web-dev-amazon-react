@@ -1,14 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./search.css";
 import axios from "axios";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const Search = () => {
   const [products, setProducts] = useState([]);
   const [sentRequest, setSentRequest] = useState(false);
   const { searchString } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   const search_url =
     "https://api.rainforestapi.com/request?api_key=8F0CEDE12EFA49D6BA05089B2EB4FFBD&type=search&amazon_domain=amazon.com&search_term";
   const searchProductRef = useRef();
