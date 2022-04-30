@@ -15,7 +15,7 @@ const BookmarkList = () => {
           Boston, MA 02115
         </button>
       </Link>
-      <ul className="list-group mt-2">
+      <ul className="wd-list-group-mine list-group mt-2">
         <li className="list-group-item">
           <b>Bookmark</b>
         </li>
