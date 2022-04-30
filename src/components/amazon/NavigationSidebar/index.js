@@ -48,7 +48,6 @@ const NavigationSidebar = ({ active = "home" }) => {
           <i className="fa-solid fa-arrow-right-to-bracket" />
           <span className="d-none d-xl-block ms-1"> Login</span>
         </Link>
-        {profile && <button className="btn btn-danger w-50" onClick={logoutClick}>Log out</button>}
       </div>
     </>
   );
