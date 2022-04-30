@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import userRoles from "../data/userRoles.json";
 import { useDispatch } from "react-redux";
 import { findOrderByBuyerId } from "../actions/orders-actions";
+import { USER_LOGIN } from "../reducers/user-reducer";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Login = () => {
   const onLoginClick = async () => {
     if (email && password && role) {
       // TODO: replace mock call with actual buyerId
+      dispatch({ type: USER_LOGIN });
       await findOrderByBuyerId(dispatch, 123);
       navigate("/");
     }

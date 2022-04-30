@@ -1,56 +1,11 @@
-.wd-flex{
-  display: flex;
-  align-items: center;
-}
-
-.wd-input{
-  width: 760px;
-  height: 90%;
-  padding: 10px;
-  font-size: 15px;
-  outline: none;
-  color: #000000;
-  border-width: 1px;
-}
-
-.wd-left-btn{
-  padding:10px 10px;
-  color: #6c757d;
-  font-size: 15px;
-  border: none;
-  width: 15%;
-  cursor: pointer;
-  background: #dddddd;
-  border-radius: 5px 0 0 5px;
-}
-
-.wd-right-btn{
-  padding:10px 10px;
-  background: #FF9900;
-
-  font-size: 15px;
-  border: none;
-  border-radius:0 5px 5px 0 ;
-  width: 15%;
-  cursor: pointer;
-}
-
-.wd-address-btn{
+.wd-address-btn {
   background: transparent;
   font-size: 14px;
   border: none;
 }
 
-.wd-search{
+.wd-search {
   color: black;
-}
-
-.wd-border-color {
-  border-color: #dee2e6;
-}
-
-.wd-list-group-mine .list-group-item {
-  border-color: #dee2e6;
 }
 
 .list-group-item.active {
