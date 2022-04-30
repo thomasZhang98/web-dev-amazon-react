@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { ADMIN_ROLE } from "../reducers/user-reducer";
+import {useNavigate, Link } from "react-router-dom";
+import {ADMIN_ROLE} from "../reducers/user-reducer";
 import userRoles from "../data/userRoles.json";
 import adminLevels from "../data/adminLevels.json";
+import {useProfile} from "../../../contexts/profile-context";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -10,8 +11,10 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("");
   const [adminLevel, setAdminLevel] = useState(-1);
+  const navigate = useNavigate();
+  const {register} = useProfile();
 
-  const onRegisterClick = () => {
+  const onRegisterClick = async () => {
     if (
       !email ||
       !password ||
@@ -21,6 +24,18 @@ const Register = () => {
       (role === "ADMIN" && !adminLevel)
     ) {
       alert("Invalid inputs");
+    } else {
+      try {
+        await register(
+            email,
+            password,
+            adminLevel,
+            role
+        )
+        navigate('/')
+      } catch (e) {
+        alert('Username already taken, please choose another one!')
+      }
     }
   };
 

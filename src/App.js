@@ -10,28 +10,40 @@ import Register from "./components/amazon/Register";
 import Profile from "./components/amazon/Profile";
 import Details from "./components/amazon/Details";
 import React from "react";
+import {ProfileProvider} from "./contexts/profile-context";
+import SecureRoute from "./components/secure-route";
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="container w-100">
-        <Routes>
-          <Route path="/" element={<Amazon />}>
-            <Route index element={<Home />} />
-            <Route path="home" element={<Home />} />
-            <Route path="search" element={<Search />} >
-              <Route path=":searchString" element={<Search />} />
+    <ProfileProvider>
+      <BrowserRouter>
+        <div className="container w-100">
+          <Routes>
+            <Route path="/" element={<Amazon />}>
+              <Route index element={<Home />} />
+              <Route path="home" element={<Home />} />
+              <Route path="search" element={<Search />} >
+                <Route path=":searchString" element={<Search />} />
+              </Route>
+              <Route path="login" element={<Login />} />
+              <Route path="register" element={<Register />} />
+              <Route path="profile" element={
+                  <SecureRoute>
+                    <Profile />
+                  </SecureRoute>
+                }>
+                <Route path=":id" element={
+                  <SecureRoute>
+                    <Profile />
+                  </SecureRoute>
+                  } />
+              </Route>
+              <Route path="details/:asin" element={<Details />} />
             </Route>
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="profile" element={<Profile />}>
-              <Route path=":id" element={<Profile />} />
-            </Route>
-            <Route path="details/:asin" element={<Details />} />
-          </Route>
-        </Routes>
-      </div>
-    </BrowserRouter>
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </ProfileProvider>
   );
 }
 

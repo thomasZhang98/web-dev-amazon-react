@@ -2,9 +2,19 @@ import React, {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import {useParams} from "react-router-dom";
 import "../index.css";
-import Pre from "../../../utils/pre";
+import SecureContent from "../../secure-content";
+
+const api = axios.create({
+    withCredentials: true
+})
 
 const Details = () => {
+    const [currUser, setCurrUser] = useState(null)
+    const fetchCurrUser = async () => {
+        const response = await api.post('http://localhost:4000/api/profile')
+        setCurrUser(response.data)
+    }
+
     const {asin} = useParams();
     const product_url = 'https://api.rainforestapi.com/request?api_key=DC59025C567F45A5B063E5DB1EF567A2&type=product&amazon_domain=amazon.com&asin';
     const nodejs_url = 'http://localhost:4000/api/products'
@@ -48,6 +58,7 @@ const Details = () => {
     useEffect(() => {
         fetchProductByAsinFromAmazon()
         fetchProductByAsinFromLocalAPI()
+        fetchCurrUser()
     }, [])
 
     const handleBookmarks = async () => {
@@ -91,8 +102,14 @@ const Details = () => {
                             <div>{productDetails.brand}</div>
                             <h5>${productDetails.buybox_winner.price.value}</h5>
                             <p>Rating: 0/5</p>
-                            <button className="btn btn-success">Make Order</button>
-                            <button className="btn btn-primary ms-2" onClick={handleBookmarks}>Bookmark ({ourProductDetails.bookmarks.length})</button>
+                            <SecureContent>
+                                <div>
+                                    <button className="btn btn-success">Make Order</button>
+                                    <button className="btn btn-primary ms-2" onClick={handleBookmarks}>Bookmark
+                                        ({ourProductDetails.bookmarks.length})
+                                    </button>
+                                </div>
+                            </SecureContent>
                         </div>
                     </div>
 
@@ -103,13 +120,16 @@ const Details = () => {
                         ))}
                     </ul>
 
-                    <h5>Make a Comment:</h5>
-                    <textarea placeholder={"Put down your comment"} className="form-control"></textarea>
-                    <label className="height-20px" id="rating">Rate: </label>
-                    <input type="range" className="form-range w-25 ms-2 mt-2 pt-2" min="0" max="5" step="1" id="rating" onChange={e => setRatingVal(e.target.value)}/>
-                    <span className="ms-2 height-20px">{ratingVal}/5</span>
-                    <button className="btn btn-primary mt-2 float-end">Submit</button>
-
+                    <SecureContent>
+                        <div>
+                            <h5>Make a Comment:</h5>
+                            <textarea placeholder={"Put down your comment"} className="form-control"></textarea>
+                            <label className="height-20px" id="rating">Rate: </label>
+                            <input type="range" className="form-range w-25 ms-2 mt-2 pt-2" min="0" max="5" step="1" id="rating" onChange={e => setRatingVal(e.target.value)}/>
+                            <span className="ms-2 height-20px">{ratingVal}/5</span>
+                            <button className="btn btn-primary mt-2 float-end">Submit</button>
+                        </div>
+                    </SecureContent>
                     <h5 className="mt-3">Comments:</h5>
                 </>
             }
