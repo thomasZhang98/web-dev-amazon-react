@@ -4,10 +4,12 @@ import { useParams } from "react-router-dom";
 import "../index.css";
 import SecureContent from "../../secure-content";
 import {useProfile} from "../../../contexts/profile-context";
+import Cm from "./comments";
 
 const Details = () => {
     const {profile} = useProfile();
-    console.log(profile)
+    // const id = profile._id
+    // console.log(profile)
 
     const {asin} = useParams();
     const product_url = 'https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=product&amazon_domain=amazon.com&asin';
@@ -27,6 +29,7 @@ const Details = () => {
         },
         feature_bullets: []
     })
+
 
   const [ourProductDetails, setOurProductDetails] = useState({
     asin: asin,
@@ -123,10 +126,7 @@ const Details = () => {
           <SecureContent>
             <div>
               <h5>Make a Comment:</h5>
-              <textarea
-                placeholder={"Put down your comment"}
-                className="form-control"
-              ></textarea>
+              <Cm/>
               <button className="btn btn-primary mt-2">Submit</button>
             </div>
           </SecureContent>
