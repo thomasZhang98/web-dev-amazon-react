@@ -50,6 +50,7 @@ const Details = () => {
     setOurProductDetails(response.data);
   };
   useEffect(() => {
+    fetchProductByAsinFromAmazon();
     fetchProductByAsinFromLocalAPI();
   }, []);
 
@@ -66,10 +67,13 @@ const Details = () => {
     if (user && user.bookmarks.includes(asin)) {
         await api.post("http://localhost:4000/api/unbookmarks", product);
         setUser({...user, bookmarks: user.bookmarks.filter(bk => bk !== asin)})
+        setOurProductDetails({...ourProductDetails, bookmarks: ourProductDetails.bookmarks - 1});
     } else if (user && !user.bookmarks.includes(asin)) {
-        await api.post("http://localhost:4000/api/bookmarks", product);
+        const response = await api.post("http://localhost:4000/api/bookmarks", product);
         user.bookmarks.push(asin)
         setUser(user)
+        console.log(ourProductDetails)
+        setOurProductDetails({...ourProductDetails, bookmarks: ourProductDetails.bookmarks + 1});
     }
     await fetchProductByAsinFromLocalAPI();
   };
