@@ -1,12 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../index.css";
 import SecureContent from "../../secure-content";
 import {useProfile} from "../../../contexts/profile-context";
 
+const api = axios.create({withCredentials: true})
+
 const Details = () => {
-    const {profile} = useProfile();
+    const {profile, checkLoggedIn} = useProfile();
+    const [user, setUser] = useState(profile);
 
     const {asin} = useParams();
     const product_url = 'https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=product&amazon_domain=amazon.com&asin';
@@ -35,8 +38,7 @@ const Details = () => {
     brand: "",
     price: "",
     feature_bullets: [],
-    bookmarks: [],
-    comments: [],
+    bookmarks: 0
   });
 
   const fetchProductByAsinFromAmazon = async () => {
@@ -49,7 +51,6 @@ const Details = () => {
   };
   useEffect(() => {
     fetchProductByAsinFromLocalAPI();
-    // fetchCurrUser();
   }, []);
 
   const handleBookmarks = async () => {
@@ -62,16 +63,16 @@ const Details = () => {
       feature_bullets: productDetails.feature_bullets,
       link: productDetails.link,
     };
-    if (profile && profile.bookmarks.includes(asin)) {
-        await axios.post("http://localhost:4000/api/unbookmarks", product);
-        await fetchProductByAsinFromLocalAPI();
-    } else if (profile && !profile.bookmarks.includes(asin)) {
-        await axios.post("http://localhost:4000/api/bookmarks", product);
-        await fetchProductByAsinFromLocalAPI();
+    if (user && user.bookmarks.includes(asin)) {
+        await api.post("http://localhost:4000/api/unbookmarks", product);
+        setUser({...user, bookmarks: user.bookmarks.filter(bk => bk !== asin)})
+    } else if (user && !user.bookmarks.includes(asin)) {
+        await api.post("http://localhost:4000/api/bookmarks", product);
+        user.bookmarks.push(asin)
+        setUser(user)
     }
+    await fetchProductByAsinFromLocalAPI();
   };
-
-  const [bookmarked, setBookmarked] = useState(profile && profile.bookmarks.includes(asin));
 
   return (
     <div className="mt-2">
@@ -103,8 +104,8 @@ const Details = () => {
                     className="btn btn-primary ms-2"
                     onClick={handleBookmarks}
                   >
-                      {profile && profile.bookmarks.includes(asin) ? 'Unbookmark' : 'Bookmark'} (
-                    {ourProductDetails && ourProductDetails.bookmarks.length})
+                      {user && user.bookmarks.includes(asin) ? 'Unbookmark' : 'Bookmark'} (
+                    {ourProductDetails && ourProductDetails.bookmarks})
                   </button>
                 </div>
               </SecureContent>
