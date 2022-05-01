@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import OrderItem from "./order-item";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { findOrderByBuyerId } from "../../actions/orders-actions";
 
-const OrderList = () => {
+const OrderList = ({ buyerId }) => {
   const orders = useSelector((state) => state.orders);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    async function fetchOrders() {
+      await findOrderByBuyerId(dispatch, buyerId);
+    }
+    fetchOrders();
+  }, [dispatch]);
   return (
     <div>
       <b className="wd-list-title">Your Orders</b>
