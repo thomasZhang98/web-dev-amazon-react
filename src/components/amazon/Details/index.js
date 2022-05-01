@@ -3,12 +3,14 @@ import axios from 'axios';
 import {useParams} from "react-router-dom";
 import "../index.css";
 import SecureContent from "../../secure-content";
+import {useProfile} from "../../../contexts/profile-context";
 
 const api = axios.create({
     withCredentials: true
 })
 
 const Details = () => {
+    const {profile} = useProfile();
     const [currUser, setCurrUser] = useState(null)
     const fetchCurrUser = async () => {
         const response = await api.post('http://localhost:4000/api/profile')
