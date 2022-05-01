@@ -23,8 +23,6 @@ const Login = () => {
     if (email && password && role) {
       try {
         await login(email, password, role)
-        // TODO: replace mock call with actual buyerId
-        // await findOrderByBuyerId(dispatch, 123);
         navigate('/')
       } catch (e) {
         alert('Username not found or password incorrect. Please try again!')

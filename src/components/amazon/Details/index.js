@@ -18,7 +18,7 @@ const Details = () => {
     }
 
     const {asin} = useParams();
-    const product_url = 'https://api.rainforestapi.com/request?api_key=DC59025C567F45A5B063E5DB1EF567A2&type=product&amazon_domain=amazon.com&asin';
+    const product_url = 'https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=product&amazon_domain=amazon.com&asin';
     const nodejs_url = 'http://localhost:4000/api/products'
     const [productDetails, setProductDetails] = useState({
         asin: asin,
@@ -108,7 +108,7 @@ const Details = () => {
                                 <div>
                                     <button className="btn btn-success">Make Order</button>
                                     <button className="btn btn-primary ms-2" onClick={handleBookmarks}>Bookmark
-                                        ({ourProductDetails.bookmarks.length})
+                                        ({ourProductDetails && ourProductDetails.bookmarks.length})
                                     </button>
                                 </div>
                             </SecureContent>

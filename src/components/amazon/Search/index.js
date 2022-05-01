@@ -9,7 +9,7 @@ const Search = () => {
   const { searchString } = useParams();
   const navigate = useNavigate();
   const search_url =
-    "https://api.rainforestapi.com/request?api_key=8F0CEDE12EFA49D6BA05089B2EB4FFBD&type=search&amazon_domain=amazon.com&search_term";
+    "https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=search&amazon_domain=amazon.com&search_term";
   const searchProductRef = useRef();
 
   const searchProducts = async () => {
@@ -19,7 +19,6 @@ const Search = () => {
     );
     setProducts(response.data.search_results);
     navigate(`/search/${searchProductRef.current.value}`);
-    console.log("here");
   };
 
   useEffect(() => {
@@ -78,7 +77,6 @@ const Search = () => {
                   width="200"
                 />
                 {product.title}
-                {product.price}
               </Link>
             </li>
           ))}
