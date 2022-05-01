@@ -5,17 +5,9 @@ import "../index.css";
 import SecureContent from "../../secure-content";
 import {useProfile} from "../../../contexts/profile-context";
 
-const api = axios.create({
-  withCredentials: true,
-});
-
 const Details = () => {
     const {profile} = useProfile();
-    const [currUser, setCurrUser] = useState(null)
-    const fetchCurrUser = async () => {
-        const response = await api.post('http://localhost:4000/api/profile')
-        setCurrUser(response.data)
-    }
+    console.log(profile)
 
     const {asin} = useParams();
     const product_url = 'https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=product&amazon_domain=amazon.com&asin';
@@ -57,9 +49,8 @@ const Details = () => {
     setOurProductDetails(response.data);
   };
   useEffect(() => {
-    fetchProductByAsinFromAmazon();
     fetchProductByAsinFromLocalAPI();
-    fetchCurrUser();
+    // fetchCurrUser();
   }, []);
 
   const handleBookmarks = async () => {
@@ -72,9 +63,18 @@ const Details = () => {
       feature_bullets: productDetails.feature_bullets,
       link: productDetails.link,
     };
-    await axios.post("http://localhost:4000/api/bookmarks", product);
-    await fetchProductByAsinFromLocalAPI();
+    if (profile && profile.bookmarks.includes(asin)) {
+        await axios.post("http://localhost:4000/api/unbookmarks", product);
+        await fetchProductByAsinFromLocalAPI();
+        setBookmarked(false)
+    } else if (profile && !profile.bookmarks.includes(asin)) {
+        await axios.post("http://localhost:4000/api/bookmarks", product);
+        await fetchProductByAsinFromLocalAPI();
+        setBookmarked(true)
+    }
   };
+
+  const [bookmarked, setBookmarked] = useState(profile && profile.bookmarks.includes(asin));
 
   return (
     <div className="mt-2">
@@ -106,7 +106,7 @@ const Details = () => {
                     className="btn btn-primary ms-2"
                     onClick={handleBookmarks}
                   >
-                    Bookmark (
+                      {profile && profile.bookmarks.includes(asin) ? 'Unbookmark' : 'Bookmark'} (
                     {ourProductDetails && ourProductDetails.bookmarks.length})
                   </button>
                 </div>
