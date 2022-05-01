@@ -14,7 +14,7 @@ const OrderList = ({ buyerId }) => {
   }, [dispatch]);
   return (
     <div>
-      <b className="wd-list-title">Your Orders</b>
+      <h5 className="wd-list-title">Your Orders</h5>
       <ul className="list-group my-2">
         {orders.map((order) => {
           return <OrderItem key={order._id} order={order} />;

@@ -30,7 +30,6 @@ const Profile = () => {
       }
     } getOtherUser();
   }, [])
-  const [phone_number, setPhoneNumber] = useState(user.phoneNumber);
   const navigate = useNavigate();
   const logoutClick = async () => {
     await logout()
@@ -102,16 +101,7 @@ const Profile = () => {
 
           {user.role === "BUYER" && (
             <div className="list-group mt-2 mb-4">
-              <h5>Orders</h5>
-              {console.log(orders)}
-              {user.orders.map((oid) => (
-                <div className="list-group-item top-border-rounded">
-                  <div>
-                    <span className="fw-bold">Order ID: </span>
-                    <span>{oid}</span>
-                  </div>
-                </div>
-              ))}
+              <OrderList buyerId={user._id}/>
             </div>
           )}
         </div>
