@@ -2,19 +2,16 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import userRoles from "../data/userRoles.json";
 import { useDispatch } from "react-redux";
-import {BUYER_ROLE, ADMIN_ROLE} from "../reducers/user-reducer";
-import { findOrderByBuyerId } from "../actions/orders-actions";
 import axios from "axios";
-import {useProfile} from "../../../contexts/profile-context";
+import { useProfile } from "../../../contexts/profile-context";
 
 const api = axios.create({
-  withCredentials: true
-})
+  withCredentials: true,
+});
 
 const Login = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {login} = useProfile();
+  const { login } = useProfile();
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,15 +19,13 @@ const Login = () => {
   const onLoginClick = async () => {
     if (email && password && role) {
       try {
-        await login(email, password, role)
-        // TODO: replace mock call with actual buyerId
-        // await findOrderByBuyerId(dispatch, 123);
-        navigate('/')
+        await login(email, password, role);
+        navigate("/");
       } catch (e) {
-        alert('Username not found or password incorrect. Please try again!')
+        alert("Username not found or password incorrect. Please try again!");
       }
     } else {
-      alert('Invalid input, please try again!')
+      alert("Invalid input, please try again!");
     }
   };
 

@@ -6,10 +6,7 @@ const userReducer = (
   state = {
     loggedIn: false,
     role: BUYER_ROLE,
-    user: {
-      _id: 123,
-      address: "103 Hemenway Street, Boston, MA 02115",
-    },
+    userId: 123,
   },
   action
 ) => {
@@ -18,6 +15,8 @@ const userReducer = (
       return {
         ...state,
         loggedIn: true,
+        role: action.role,
+        userId: action.userId,
       };
     default:
       return state;
