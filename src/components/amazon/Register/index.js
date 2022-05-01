@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import {useNavigate, Link } from "react-router-dom";
-import {ADMIN_ROLE} from "../reducers/user-reducer";
+import { useNavigate, Link } from "react-router-dom";
+import { ADMIN_ROLE } from "../reducers/user-reducer";
 import userRoles from "../data/userRoles.json";
 import adminLevels from "../data/adminLevels.json";
-import {useProfile} from "../../../contexts/profile-context";
+import { useProfile } from "../../../contexts/profile-context";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -12,7 +12,7 @@ const Register = () => {
   const [role, setRole] = useState("");
   const [adminLevel, setAdminLevel] = useState(-1);
   const navigate = useNavigate();
-  const {register} = useProfile();
+  const { register } = useProfile();
 
   const onRegisterClick = async () => {
     if (
@@ -26,22 +26,17 @@ const Register = () => {
       alert("Invalid inputs");
     } else {
       try {
-        await register(
-            email,
-            password,
-            adminLevel,
-            role
-        )
-        navigate('/')
+        await register(email, password, adminLevel, role);
+        navigate("/");
       } catch (e) {
-        alert('Username already taken, please choose another one!')
+        alert("Username already taken, please choose another one!");
       }
     }
   };
 
   return (
-    <div className="row justify-content-center">
-      <div className="card d-flex flex-column align-items-center mt-2 col-11 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+    <div className="row justify-content-center px-2">
+      <div className="card d-flex flex-column align-items-center mt-2">
         <div className="d-flex flex-column align-content-start">
           <label className="mt-4 mb-2" htmlFor="register-username">
             Username:{" "}

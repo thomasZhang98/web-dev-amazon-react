@@ -9,7 +9,7 @@ const Search = () => {
   const { searchString } = useParams();
   const navigate = useNavigate();
   const search_url =
-    "https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=search&amazon_domain=amazon.com&search_term";
+    "https://api.rainforestapi.com/request?api_key=AC883445A08142609E55D8D2FB926192&type=search&amazon_domain=amazon.com&search_term";
   const searchProductRef = useRef();
 
   const searchProducts = async () => {
@@ -18,6 +18,7 @@ const Search = () => {
       `${search_url}=${searchProductRef.current.value}`
     );
     setProducts(response.data.search_results);
+    console.log(products);
     navigate(`/search/${searchProductRef.current.value}`);
   };
 
