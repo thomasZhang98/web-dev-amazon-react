@@ -42,7 +42,6 @@ const Details = () => {
         brand: '',
         price: '',
         feature_bullets: [],
-        rating: 0,
         bookmarks: [],
         comments: []
     })
@@ -75,15 +74,12 @@ const Details = () => {
         await fetchProductByAsinFromLocalAPI()
     }
 
-    const [ratingVal, setRatingVal] = useState(5);
-
     const comment = () => {
         return <div>
             {productDetails.comments.map(c => {
                 return (
                     <div className="list-group-item">
                         <h5 className="fw-bold">{c.user}</h5>
-                        <div>rating: {c.rating}/5</div>
                         {c.comment}
                     </div>
                 )
@@ -101,7 +97,6 @@ const Details = () => {
                             <h4>{productDetails.title === 'Loading...' ? <i className="fas fa-spinner fa-pulse me-2"></i> : ''}{productDetails.title}</h4>
                             <div>{productDetails.brand}</div>
                             <h5>${productDetails.buybox_winner.price.value}</h5>
-                            <p>Rating: 0/5</p>
                             <SecureContent>
                                 <div>
                                     <button className="btn btn-success">Make Order</button>
@@ -124,10 +119,7 @@ const Details = () => {
                         <div>
                             <h5>Make a Comment:</h5>
                             <textarea placeholder={"Put down your comment"} className="form-control"></textarea>
-                            <label className="height-20px" id="rating">Rate: </label>
-                            <input type="range" className="form-range w-25 ms-2 mt-2 pt-2" min="0" max="5" step="1" id="rating" onChange={e => setRatingVal(e.target.value)}/>
-                            <span className="ms-2 height-20px">{ratingVal}/5</span>
-                            <button className="btn btn-primary mt-2 float-end">Submit</button>
+                            <button className="btn btn-primary mt-2">Submit</button>
                         </div>
                     </SecureContent>
                     <h5 className="mt-3">Comments:</h5>
