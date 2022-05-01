@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const OrderItem = ({ order }) => {
   const orderDate = new Date(order.orderTime).toLocaleDateString("en-us");
@@ -43,7 +44,7 @@ const OrderItem = ({ order }) => {
           </div>
           <div className="col-md-10 col-sm-8 ">
             <p className="wd-font-13 wd-margin-bot-0">
-              <b>{order.productName}</b>
+              <b><Link to={`/details/${order.productId}`}>{order.productName}</Link></b>
             </p>
           </div>
         </div>
