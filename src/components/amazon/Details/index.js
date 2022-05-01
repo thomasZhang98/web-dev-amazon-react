@@ -7,7 +7,6 @@ import {useProfile} from "../../../contexts/profile-context";
 
 const Details = () => {
     const {profile} = useProfile();
-    console.log(profile)
 
     const {asin} = useParams();
     const product_url = 'https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=product&amazon_domain=amazon.com&asin';
@@ -66,11 +65,9 @@ const Details = () => {
     if (profile && profile.bookmarks.includes(asin)) {
         await axios.post("http://localhost:4000/api/unbookmarks", product);
         await fetchProductByAsinFromLocalAPI();
-        setBookmarked(false)
     } else if (profile && !profile.bookmarks.includes(asin)) {
         await axios.post("http://localhost:4000/api/bookmarks", product);
         await fetchProductByAsinFromLocalAPI();
-        setBookmarked(true)
     }
   };
 
