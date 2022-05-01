@@ -1,7 +1,8 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import NavigationSidebar from "./NavigationSidebar";
 import bookmarksReducer from "./reducers/bookmarks-reducer";
+import buyersReducer from "./reducers/buyers-reducer";
 import productsReducer from "./reducers/products-reducer";
 import ordersReducer from "./reducers/orders-reducer";
 import userReducer from "./reducers/user-reducer";
@@ -11,6 +12,7 @@ import BookmarkList from "./Bookmarks";
 
 const reducer = combineReducers({
   bookmarks: bookmarksReducer,
+  buyers: buyersReducer,
   products: productsReducer,
   orders: ordersReducer,
   user: userReducer,

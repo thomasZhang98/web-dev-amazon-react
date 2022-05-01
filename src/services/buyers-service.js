@@ -7,3 +7,14 @@ export const findOrders = async (buyerId) => {
   const orders = response.data;
   return orders;
 };
+
+export const findAllBuyers = async () => {
+  const response = await axios.get(BUYERS_API);
+  const buyers = response.data;
+  return buyers;
+};
+
+export const deleteBuyer = async (buyer) => {
+  const response = await axios.delete(`${BUYERS_API}/${buyer._id}`);
+  return response.data;
+};

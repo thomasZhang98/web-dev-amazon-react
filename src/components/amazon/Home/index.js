@@ -2,8 +2,9 @@ import React from "react";
 import "./home.css";
 import OrderList from "./orders";
 import ProductList from "./products";
+import BuyerList from "./buyers";
 import { useProfile } from "../../../contexts/profile-context";
-import { BUYER_ROLE } from "../reducers/user-reducer";
+import { ADMIN_ROLE, BUYER_ROLE } from "../reducers/user-reducer";
 
 const Home = () => {
   const { profile } = useProfile();
@@ -13,6 +14,7 @@ const Home = () => {
       {profile && profile.role === BUYER_ROLE && (
         <OrderList buyerId={profile._id} />
       )}
+      {profile && profile.role === ADMIN_ROLE && <BuyerList />}
       {!profile && <ProductList />}
     </div>
   );
