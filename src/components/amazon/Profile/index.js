@@ -3,7 +3,6 @@ import {useNavigate, useParams} from "react-router-dom";
 import "../index.css";
 import {useProfile} from "../../../contexts/profile-context";
 import axios from "axios";
-import {useSelector} from "react-redux";
 import OrderList from "../Home/orders";
 
 const api = axios.create({withCredentials: true});
@@ -13,7 +12,6 @@ const Profile = () => {
   const { id } = useParams();
   const isSelfProfile = !id;
   const [user, setUser] = useState(profile);
-  const orders = useSelector(state => state.orders)
   useEffect(() => {
     async function getOtherUser() {
       if (!isSelfProfile) {
@@ -30,7 +28,6 @@ const Profile = () => {
       }
     } getOtherUser();
   }, [])
-  const [phone_number, setPhoneNumber] = useState(user.phoneNumber);
   const navigate = useNavigate();
   const logoutClick = async () => {
     await logout()
@@ -48,7 +45,7 @@ const Profile = () => {
             <div>{user.role}</div>
           </div>
           <div className="list-group-item">
-            <label className="fw-bold" htmlFor="username">
+            <label className="fw-bold">
               Username:{" "}
             </label>
             <div>{user.userName}</div>
@@ -66,7 +63,7 @@ const Profile = () => {
               <div>{user._id}</div>
             </div>
             <div className="list-group-item">
-              <label className="fw-bold" for="pw">
+              <label className="fw-bold">
                 Password:
               </label>
               <div>
@@ -74,7 +71,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="list-group-item">
-              <label className="fw-bold" for="fn">
+              <label className="fw-bold">
                 First Name:
               </label>
               <div>
@@ -82,7 +79,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="list-group-item">
-              <label className="fw-bold" for="ln">
+              <label className="fw-bold">
                 Last Name:
               </label>
               <div>
@@ -90,7 +87,7 @@ const Profile = () => {
               </div>
             </div>
             <div className="list-group-item">
-              <label className="fw-bold" for="pn">
+              <label className="fw-bold">
                 Phone Number:
               </label>
               <div>
@@ -102,23 +99,14 @@ const Profile = () => {
 
           {user.role === "BUYER" && (
             <div className="list-group mt-2 mb-4">
-              <h5>Orders</h5>
-              {console.log(orders)}
-              {user.orders.map((oid) => (
-                <div className="list-group-item top-border-rounded">
-                  <div>
-                    <span className="fw-bold">Order ID: </span>
-                    <span>{oid}</span>
-                  </div>
-                </div>
-              ))}
+              <OrderList buyerId={user._id}/>
             </div>
           )}
+          <button className="btn btn-danger" onClick={logoutClick}>Log out</button>
         </div>
       ) : (
         <></>
       )}
-      <button className="btn btn-danger" onClick={logoutClick}>Log out</button>
     </div>
   );
 };
