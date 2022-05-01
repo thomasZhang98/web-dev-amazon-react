@@ -20,7 +20,6 @@ const Search = () => {
     setProducts(response.data.search_results);
     console.log(products);
     navigate(`/search/${searchProductRef.current.value}`);
-    console.log("here");
   };
 
   useEffect(() => {

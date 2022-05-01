@@ -3,37 +3,30 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import "../index.css";
 import SecureContent from "../../secure-content";
-
-const api = axios.create({
-  withCredentials: true,
-});
+import {useProfile} from "../../../contexts/profile-context";
 
 const Details = () => {
-  const [currUser, setCurrUser] = useState(null);
-  const fetchCurrUser = async () => {
-    const response = await api.post("http://localhost:4000/api/profile");
-    setCurrUser(response.data);
-  };
+    const {profile} = useProfile();
+    console.log(profile)
 
-  const { asin } = useParams();
-  const product_url =
-    "https://api.rainforestapi.com/request?api_key=AC883445A08142609E55D8D2FB926192&type=product&amazon_domain=amazon.com&asin";
-  const nodejs_url = "http://localhost:4000/api/products";
-  const [productDetails, setProductDetails] = useState({
-    asin: asin,
-    link: "",
-    main_image: {
-      link: "not-found.png",
-    },
-    title: `Loading...`,
-    brand: "",
-    buybox_winner: {
-      price: {
-        value: "",
-      },
-    },
-    feature_bullets: [],
-  });
+    const {asin} = useParams();
+    const product_url = 'https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=product&amazon_domain=amazon.com&asin';
+    const nodejs_url = 'http://localhost:4000/api/products'
+    const [productDetails, setProductDetails] = useState({
+        asin: asin,
+        link: '',
+        main_image: {
+            link: 'not-found.png'
+        },
+        title: `Loading...`,
+        brand: '',
+        buybox_winner: {
+            price: {
+                value: ''
+            }
+        },
+        feature_bullets: []
+    })
 
   const [ourProductDetails, setOurProductDetails] = useState({
     asin: asin,
@@ -56,9 +49,8 @@ const Details = () => {
     setOurProductDetails(response.data);
   };
   useEffect(() => {
-    fetchProductByAsinFromAmazon();
     fetchProductByAsinFromLocalAPI();
-    fetchCurrUser();
+    // fetchCurrUser();
   }, []);
 
   const handleBookmarks = async () => {
@@ -71,24 +63,18 @@ const Details = () => {
       feature_bullets: productDetails.feature_bullets,
       link: productDetails.link,
     };
-    await axios.post("http://localhost:4000/api/bookmarks", product);
-    await fetchProductByAsinFromLocalAPI();
+    if (profile && profile.bookmarks.includes(asin)) {
+        await axios.post("http://localhost:4000/api/unbookmarks", product);
+        await fetchProductByAsinFromLocalAPI();
+        setBookmarked(false)
+    } else if (profile && !profile.bookmarks.includes(asin)) {
+        await axios.post("http://localhost:4000/api/bookmarks", product);
+        await fetchProductByAsinFromLocalAPI();
+        setBookmarked(true)
+    }
   };
 
-  const comment = () => {
-    return (
-      <div>
-        {productDetails.comments.map((c) => {
-          return (
-            <div className="list-group-item">
-              <h5 className="fw-bold">{c.user}</h5>
-              {c.comment}
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
+  const [bookmarked, setBookmarked] = useState(profile && profile.bookmarks.includes(asin));
 
   return (
     <div className="mt-2">
@@ -120,7 +106,7 @@ const Details = () => {
                     className="btn btn-primary ms-2"
                     onClick={handleBookmarks}
                   >
-                    Bookmark (
+                      {profile && profile.bookmarks.includes(asin) ? 'Unbookmark' : 'Bookmark'} (
                     {ourProductDetails && ourProductDetails.bookmarks.length})
                   </button>
                 </div>

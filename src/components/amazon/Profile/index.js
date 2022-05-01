@@ -1,29 +1,46 @@
-import React, {useState} from "react";
-import {useParams} from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import "../index.css";
 import {useProfile} from "../../../contexts/profile-context";
+import axios from "axios";
+import {useSelector} from "react-redux";
+import OrderList from "../Home/orders";
+
+const api = axios.create({withCredentials: true});
 
 const Profile = () => {
-  const {profile} = useProfile();
-  const currentUid = profile._id; // TODO: This should be updated to be dynamic!!!
+  const {profile, logout} = useProfile();
   const { id } = useParams();
-  const targetUid = typeof id === "undefined" ? currentUid : id;
-  const user = profile; // TODO: change
-  const [username, setUsername] = useState(user.userName);
-  const [password, setPassword] = useState(user.password);
-  const [first_name, setFirstName] = useState(user.firstName);
-  const [last_name, setLastName] = useState(user.lastName);
-  const [phone_number, setPhoneNumber] = useState(user.phoneNumber);
-
-  if (profile.role === "BUYER" && user.role === "ADMIN") {
-    return <h1 className="mt-2">No access to admin profile</h1>;
+  const isSelfProfile = !id;
+  const [user, setUser] = useState(profile);
+  const orders = useSelector(state => state.orders)
+  useEffect(() => {
+    async function getOtherUser() {
+      if (!isSelfProfile) {
+        try {
+          const response = await api.get(`http://localhost:4000/api/buyers/${id}`)
+          if (!response.data) {
+            alert("Can't find the other buyer")
+          } else {
+            setUser(response.data)
+          }
+        } catch (e) {
+          alert("Can't find the other buyer")
+        }
+      }
+    } getOtherUser();
+  }, [])
+  const navigate = useNavigate();
+  const logoutClick = async () => {
+    await logout()
+    navigate('/login')
   }
+
   return (
     <div className="mt-2">
       <div className="d-flex">
         <div className="float-start w-100 list-group">
           <h3>Profile</h3>
-          {JSON.stringify(profile)}
           <h5>Public Information</h5>
           <div className="list-group-item top-border-rounded">
             <div className="fw-bold">Role: </div>
@@ -33,25 +50,13 @@ const Profile = () => {
             <label className="fw-bold" htmlFor="username">
               Username:{" "}
             </label>
-            {currentUid === targetUid ? (
-              <div>
-                <input
-                  type="text"
-                  value={username}
-                  id="username"
-                  onChange={(e) => setUsername(e.target.value)}
-                ></input>
-                <button className="btn btn-primary ms-2">Update</button>
-              </div>
-            ) : (
-              <div>{user.username}</div>
-            )}
+            <div>{user.userName}</div>
           </div>
         </div>
       </div>
       <br />
 
-      {currentUid === targetUid ? (
+      {isSelfProfile ? (
         <div>
           <div className="list-group">
             <h5>Personal Information</h5>
@@ -64,13 +69,7 @@ const Profile = () => {
                 Password:
               </label>
               <div>
-                <input
-                  type="text"
-                  value={password}
-                  id="pw"
-                  onChange={(e) => setPassword(e.target.value)}
-                ></input>
-                <button className="btn btn-primary ms-2">Update</button>
+                <div>{user.password}</div>
               </div>
             </div>
             <div className="list-group-item">
@@ -78,13 +77,7 @@ const Profile = () => {
                 First Name:
               </label>
               <div>
-                <input
-                  type="text"
-                  value={first_name}
-                  id="fn"
-                  onChange={(e) => setFirstName(e.target.value)}
-                ></input>
-                <button className="btn btn-primary ms-2">Update</button>
+                <div>{user.first_name}</div>
               </div>
             </div>
             <div className="list-group-item">
@@ -92,13 +85,7 @@ const Profile = () => {
                 Last Name:
               </label>
               <div>
-                <input
-                  type="text"
-                  value={last_name}
-                  id="ln"
-                  onChange={(e) => setLastName(e.target.value)}
-                ></input>
-                <button className="btn btn-primary ms-2">Update</button>
+                <div>{user.last_name}</div>
               </div>
             </div>
             <div className="list-group-item">
@@ -106,53 +93,22 @@ const Profile = () => {
                 Phone Number:
               </label>
               <div>
-                <input
-                  type="text"
-                  value={phone_number}
-                  id="pn"
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                ></input>
-                <button className="btn btn-primary ms-2">Update</button>
+                <div>{user.phone_number}</div>
               </div>
             </div>
           </div>
           <br />
 
-          {user.role === "Buyer" && (
+          {user.role === "BUYER" && (
             <div className="list-group mt-2 mb-4">
-              <h5>Orders</h5>
-              {user.orders.map((o) => (
-                <div className="list-group-item top-border-rounded">
-                  <div className="fw-bold">Order ID: </div>
-                  <div>{o.oid}</div>
-                  {o.products.map((p) => (
-                    <div>
-                      <div className="fw-bold">Product ID: </div>
-                      <div>{p}</div>
-                    </div>
-                  ))}{" "}
-                  //TODO: Should dynamically retrieve product from database and display relevant info.
-                </div>
-              ))}
-            </div>
-          )}
-
-          {user.role === "Buyer" && (
-            <div className="list-group mt-2">
-              <h5>Bookmarks</h5>
-              {user.bookmarks.map((b) => (
-                <div className="list-group-item top-border-rounded">
-                  <div className="fw-bold">ProductID: </div>
-                  <div>{b}</div> //TODO: Should dynamically retrieve product
-                  from database and display relevant info.
-                </div>
-              ))}
+              <OrderList buyerId={user._id}/>
             </div>
           )}
         </div>
       ) : (
         <></>
       )}
+      <button className="btn btn-danger" onClick={logoutClick}>Log out</button>
     </div>
   );
 };

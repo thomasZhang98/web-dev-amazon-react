@@ -15,7 +15,7 @@ const ProductList = () => {
 
   return (
     <div>
-      <b className="wd-list-title">Featured Products</b>
+      <h5 className="wd-list-title">Featured Products</h5>
       <ul className="list-group my-2">
         {products.map((product) => {
           return <ProductItem key={product._id} product={product} />;
