@@ -3,11 +3,13 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import "../index.css";
 import SecureContent from "../../secure-content";
-import { useProfile } from "../../../contexts/profile-context";
+import {useProfile} from "../../../contexts/profile-context";
+import Cm from "./comments";
 
-const api = axios.create({ withCredentials: true });
+const api = axios.create({withCredentials: true})
 
 const Details = () => {
+  const {profile} = useProfile();
   const { profile, checkLoggedIn } = useProfile();
   const [user, setUser] = useState(profile);
   const navigate = useNavigate()
@@ -32,6 +34,7 @@ const Details = () => {
     feature_bullets: [],
   });
 
+
   const [ourProductDetails, setOurProductDetails] = useState({
     asin: asin,
     link: "",
@@ -42,6 +45,9 @@ const Details = () => {
     feature_bullets: [],
     bookmarks: 0,
   });
+
+
+
 
   const fetchProductByAsinFromAmazon = async () => {
     const response = await axios(`${product_url}=${asin}`);
@@ -107,6 +113,29 @@ const Details = () => {
     navigate('/')
   }
 
+  const addComment = async (comment) => {
+      try {
+          const response = await api.post(`${nodejs_url}/addComment`,
+              {
+                  buyer_id: profile._id,
+                  userName: profile.userName,
+                  product_id: ourProductDetails.asin,
+                  comment: comment
+              })
+          const commentCard = {
+              comment: comment,
+              buyer_id: profile._id,
+              userName: profile.userName
+          }
+          ourProductDetails.comments.push(commentCard)
+          setOurProductDetails(ourProductDetails)
+      } catch (e) {
+          alert('oops')
+      }
+      console.log(ourProductDetails)
+      await fetchProductByAsinFromLocalAPI();
+  }
+
   return (
     <div className="mt-2">
       {productDetails === {} ? (
@@ -158,14 +187,9 @@ const Details = () => {
           <SecureContent>
             <div>
               <h5>Make a Comment:</h5>
-              <textarea
-                placeholder={"Put down your comment"}
-                className="form-control"
-              ></textarea>
-              <button className="btn btn-primary mt-2">Submit</button>
+              <Cm comments={ourProductDetails && ourProductDetails.comments} addComment={addComment}/>
             </div>
           </SecureContent>
-          <h5 className="mt-3">Comments:</h5>
         </>
       )}
     </div>
