@@ -3,9 +3,9 @@ import "./bookmark.css";
 
 const BookmarkListItem = ({
   product = {
-    pimg: "https://m.media-amazon.com/images/I/71CA7BPK3VL._SY879_.jpg",
-    company: "BLK & Bold Specialty Beverages",
-    productName: "BLK & Bold | BLK & Bold Coffee Blend",
+    image: "https://m.media-amazon.com/images/I/71CA7BPK3VL._SY879_.jpg",
+    brand: "BLK & Bold Specialty Beverages",
+    title: "BLK & Bold | BLK & Bold Coffee Blend",
     price: "$10.96 ($0.91 / Ounce)",
   },
 }) => {
@@ -14,7 +14,7 @@ const BookmarkListItem = ({
       <div className="row align-items-center">
         <div className="col-xxl-2 col-xl-2 col-md-3">
           <img
-            src={product.pimg}
+            src={product.image}
             width="48"
             className="float-start"
             alt="img"
@@ -24,11 +24,11 @@ const BookmarkListItem = ({
           className="col-xxl-8 col-xl-7 col-md-6"
           style={{ paddingLeft: 2 + "em" }}
         >
-          <b> {product.productName} </b>
+          <b> {product.title} </b>
           <br />
           <div className="wd-font-small">
             {" "}
-            <b>Sold By:</b> {product.company}
+            <b>Sold By:</b> {product.brand}
           </div>
         </div>
 
