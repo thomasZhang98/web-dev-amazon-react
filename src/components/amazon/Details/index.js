@@ -12,6 +12,7 @@ const Details = () => {
     const {profile} = useProfile();
     const [user, setUser] = useState(null);
     const {asin} = useParams();
+    const navigate = useNavigate();
     const product_url = 'https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=product&amazon_domain=amazon.com&asin';
     const nodejs_url = 'http://localhost:4000/api/products'
     const [productDetails, setProductDetails] = useState({
@@ -40,9 +41,6 @@ const Details = () => {
     feature_bullets: [],
     bookmarks: 0,
   });
-
-
-
 
   const fetchProductByAsinFromAmazon = async () => {
     const response = await axios(`${product_url}=${asin}`);
@@ -75,6 +73,7 @@ const Details = () => {
       feature_bullets: productDetails.feature_bullets,
       link: productDetails.link,
     };
+
     if (user && user.bookmarks.includes(asin)) {
       await api.post("http://localhost:4000/api/unbookmarks", product);
       setUser({...user, bookmarks: user.bookmarks.filter(bk => bk !== asin)})
@@ -123,7 +122,6 @@ const Details = () => {
       } catch (e) {
           alert('oops')
       }
-      console.log(ourProductDetails)
       await fetchProductByAsinFromLocalAPI();
   }
 
@@ -159,7 +157,7 @@ const Details = () => {
                     className="btn btn-primary ms-2"
                     onClick={handleBookmarks}
                   >
-                    {user && user.bookmarks.includes(asin)
+                    {user && user.bookmarks && user.bookmarks.includes(asin)
                       ? "Unbookmark"
                       : "Bookmark"}{" "}
                     ({ourProductDetails && ourProductDetails.bookmarks})

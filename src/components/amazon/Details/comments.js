@@ -1,20 +1,9 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
-
-const CommentList = ({comments}) => {
-    console.log(comments)
-  if (comments) {
-    return (
-        <>
-        {comments.map(comment => <div>{comment.comment}</div>)}
-        </>
-    )
-  } else {
-    return (<span>No comments</span>)
-  }
-};
+import {useProfile} from "../../../contexts/profile-context";
 
 const Cm = ({ comments, addComment }) => {
+    const {profile} = useProfile();
     const [comment, setComment] = useState();
     const handleClick = () => {
       addComment(comment);
@@ -34,8 +23,8 @@ const Cm = ({ comments, addComment }) => {
 
           <h5 className="list-group mt-3">Comments:</h5>
           <div className="mt-2">
-              {comments.length !== 0 ?
-                  comments.map(comment => <li className="list-group-item"><Link to={`/profile/${comment.buyer_id}`} className="fw-bold"><div>{comment.userName}:</div></Link>{comment.comment}</li>) :
+              {comments && comments.length !== 0 ?
+                  comments.map(comment => <li className="list-group-item"><Link to={`/profile${profile._id === comment.buyerID ? '' : '/' + comment.buyerID}`} className="fw-bold"><div>{comment.userName}:</div></Link>{comment.comment}</li>) :
                   <h5>No comments</h5>}
           </div>
         </div>
