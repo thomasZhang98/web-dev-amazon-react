@@ -102,9 +102,7 @@ const Details = () => {
       link: productDetails.link,
     };
 
-    if (user) {
-      await api.post("http://localhost:4000/api/orders", product);
-    }
+    await api.post("http://localhost:4000/api/orders", product);
   }
 
   return (
