@@ -9,31 +9,26 @@ import Cm from "./comments";
 const api = axios.create({withCredentials: true})
 
 const Details = () => {
-  const {profile} = useProfile();
-  const { profile, checkLoggedIn } = useProfile();
-  const [user, setUser] = useState(profile);
-  const navigate = useNavigate()
-
-  const { asin } = useParams();
-  const product_url =
-    "https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=product&amazon_domain=amazon.com&asin";
-  const nodejs_url = "http://localhost:4000/api/products";
-  const [productDetails, setProductDetails] = useState({
-    asin: asin,
-    link: "",
-    main_image: {
-      link: "not-found.png",
-    },
-    title: `Loading...`,
-    brand: "",
-    buybox_winner: {
-      price: {
-        value: "",
-      },
-    },
-    feature_bullets: [],
-  });
-
+    const {profile} = useProfile();
+    const [user, setUser] = useState(null);
+    const {asin} = useParams();
+    const product_url = 'https://api.rainforestapi.com/request?api_key=DC1695CE686742979025FA03FF744234&type=product&amazon_domain=amazon.com&asin';
+    const nodejs_url = 'http://localhost:4000/api/products'
+    const [productDetails, setProductDetails] = useState({
+        asin: asin,
+        link: '',
+        main_image: {
+            link: 'not-found.png'
+        },
+        title: `Loading...`,
+        brand: '',
+        buybox_winner: {
+            price: {
+                value: ''
+            }
+        },
+        feature_bullets: []
+    })
 
   const [ourProductDetails, setOurProductDetails] = useState({
     asin: asin,
@@ -53,13 +48,21 @@ const Details = () => {
     const response = await axios(`${product_url}=${asin}`);
     setProductDetails(response.data.product);
   };
+
   const fetchProductByAsinFromLocalAPI = async () => {
-    const response = await axios(`${nodejs_url}/${asin}`);
+    const response = await api(`${nodejs_url}/${asin}`);
     setOurProductDetails(response.data);
   };
+
+  const fetchUser = async () => {
+    const response = await api(`http://localhost:4000/api/buyers/${profile._id}`)
+    setUser(response.data)
+  }
+
   useEffect(() => {
     fetchProductByAsinFromAmazon();
     fetchProductByAsinFromLocalAPI();
+    fetchUser();
   }, []);
 
   const handleBookmarks = async () => {
@@ -74,28 +77,16 @@ const Details = () => {
     };
     if (user && user.bookmarks.includes(asin)) {
       await api.post("http://localhost:4000/api/unbookmarks", product);
-      setUser({
-        ...user,
-        bookmarks: user.bookmarks.filter((bk) => bk !== asin),
-      });
-      setOurProductDetails({
-        ...ourProductDetails,
-        bookmarks: ourProductDetails.bookmarks - 1,
-      });
+      setUser({...user, bookmarks: user.bookmarks.filter(bk => bk !== asin)})
+      setOurProductDetails({...ourProductDetails, bookmarks: ourProductDetails.bookmarks - 1});
     } else if (user && !user.bookmarks.includes(asin)) {
-      const response = await api.post(
-        "http://localhost:4000/api/bookmarks",
-        product
-      );
-      user.bookmarks.push(asin);
-      setUser(user);
-      console.log(ourProductDetails);
-      setOurProductDetails({
-        ...ourProductDetails,
-        bookmarks: ourProductDetails.bookmarks + 1,
-      });
+      const response = await api.post("http://localhost:4000/api/bookmarks", product);
+      user.bookmarks.push(asin)
+      setUser(user)
+      setOurProductDetails({...ourProductDetails, bookmarks: ourProductDetails.bookmarks + 1});
     }
     await fetchProductByAsinFromLocalAPI();
+    await fetchUser();
   };
 
   const handleOrder = async () => {

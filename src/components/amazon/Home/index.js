@@ -15,7 +15,7 @@ const Home = () => {
         <OrderList buyerId={profile._id} />
       )}
       {profile && profile.role === ADMIN_ROLE && <BuyerList />}
-      {!profile && <ProductList />}
+      <ProductList />
     </div>
   );
 };
