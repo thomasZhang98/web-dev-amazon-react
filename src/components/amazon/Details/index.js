@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../index.css";
 import SecureContent from "../../secure-content";
 import { useProfile } from "../../../contexts/profile-context";
@@ -10,6 +10,7 @@ const api = axios.create({ withCredentials: true });
 const Details = () => {
   const { profile, checkLoggedIn } = useProfile();
   const [user, setUser] = useState(profile);
+  const navigate = useNavigate()
 
   const { asin } = useParams();
   const product_url =
@@ -103,6 +104,7 @@ const Details = () => {
     };
 
     await api.post("http://localhost:4000/api/orders", product);
+    navigate('/')
   }
 
   return (
