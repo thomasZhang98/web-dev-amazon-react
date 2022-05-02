@@ -43,6 +43,9 @@ const Details = () => {
     comments: [],
   });
 
+
+
+
   const fetchProductByAsinFromAmazon = async () => {
     const response = await axios(`${product_url}=${asin}`);
     setProductDetails(response.data.product);
@@ -78,6 +81,34 @@ const Details = () => {
   };
 
   const [bookmarked, setBookmarked] = useState(profile && profile.bookmarks.includes(asin));
+
+  const addComment = async (comment) => {
+
+    const newComment = { comment:comment }
+
+
+    setOurProductDetails(prevState => ({
+      ...prevState.asin,
+      ...prevState.title,
+      ...prevState.link,
+      ...prevState.image,
+      ...prevState.feature_bullets,
+      ...prevState.brand,
+      ...prevState.price,
+      comments: [...prevState.comments, newComment]
+    }))
+    const response = await axios({
+      method: "post",
+      url: `${product_url}/addComment`,
+      data: {
+        "buyer_id": profile._id,
+        "product_id": ourProductDetails.asin,
+        "comment": comment
+      }
+      }
+)
+
+    }
 
   return (
     <div className="mt-2">
@@ -126,7 +157,8 @@ const Details = () => {
           <SecureContent>
             <div>
               <h5>Make a Comment:</h5>
-              <Cm/>
+              {console.log(ourProductDetails)}
+              <Cm comments={ourProductDetails && ourProductDetails.comments} addComment={addComment}/>
               <button className="btn btn-primary mt-2">Submit</button>
             </div>
           </SecureContent>

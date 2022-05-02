@@ -1,30 +1,45 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-const CommentList = ({ comments }) => {
-  return <div>{comments && comments.map((comment) => <li>{comment}</li>)}</div>;
+const CommentList = ({comments}) => {
+ 
+  if (comments) {
+    return (
+        <>
+        {comments?.map(comment => <div>{comment.comment}</div>)}
+       
+        </>
+    )
+  } else {
+    return (<span>No comments</span>)
+  }
 };
 
-const Cm = () => {
-  const [comments, setComments] = useState([]);
-  const [data, setData] = useState();
 
-  const addComment = () => {
-    setComments([...comments, data]);
-  };
+const Cm = ({ comments, addComment }) => {
+  const [comment, setComment] = useState();
 
-  return (
-      <div>
+  function handleClick(e) {
+    addComment(comment)
+  }
+
+
+
+    return (
         <div>
+          <div>
+
         <textarea
-            value={data}
-            onChange={(e) => setData(e.target.value)}
-        ></textarea>
-          <button onClick={addComment}>Comment</button>
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+        />
+            <button onClick={handleClick}>Comment</button>
+          </div>
+          <div>
+
+            <CommentList comment={comments}/>
+
+          </div>
         </div>
-        <div>
-          <CommentList comments={comments} />
-        </div>
-      </div>
-  );
-};
-export default Cm;
+    );
+  };
+  export default Cm;
