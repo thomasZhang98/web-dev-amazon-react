@@ -6,6 +6,8 @@ import SecureContent from "../../secure-content";
 import {useProfile} from "../../../contexts/profile-context";
 import Cm from "./comments";
 
+const api = axios.create({withCredentials: true})
+
 const Details = () => {
     const {profile} = useProfile();
     // const id = profile._id
@@ -55,6 +57,7 @@ const Details = () => {
     setOurProductDetails(response.data);
   };
   useEffect(() => {
+    fetchProductByAsinFromAmazon();
     fetchProductByAsinFromLocalAPI();
     // fetchCurrUser();
   }, []);
@@ -83,32 +86,27 @@ const Details = () => {
   const [bookmarked, setBookmarked] = useState(profile && profile.bookmarks.includes(asin));
 
   const addComment = async (comment) => {
-
-    const newComment = { comment:comment }
-
-
-    setOurProductDetails(prevState => ({
-      ...prevState.asin,
-      ...prevState.title,
-      ...prevState.link,
-      ...prevState.image,
-      ...prevState.feature_bullets,
-      ...prevState.brand,
-      ...prevState.price,
-      comments: [...prevState.comments, newComment]
-    }))
-    const response = await axios({
-      method: "post",
-      url: `${product_url}/addComment`,
-      data: {
-        "buyer_id": profile._id,
-        "product_id": ourProductDetails.asin,
-        "comment": comment
+      try {
+          const response = await api.post(`${nodejs_url}/addComment`,
+              {
+                  buyer_id: profile._id,
+                  userName: profile.userName,
+                  product_id: ourProductDetails.asin,
+                  comment: comment
+              })
+          const commentCard = {
+              comment: comment,
+              buyer_id: profile._id,
+              userName: profile.userName
+          }
+          ourProductDetails.comments.push(commentCard)
+          setOurProductDetails(ourProductDetails)
+      } catch (e) {
+          alert('oops')
       }
-      }
-)
-
-    }
+      console.log(ourProductDetails)
+      await fetchProductByAsinFromLocalAPI();
+  }
 
   return (
     <div className="mt-2">
@@ -141,7 +139,7 @@ const Details = () => {
                     onClick={handleBookmarks}
                   >
                       {profile && profile.bookmarks.includes(asin) ? 'Unbookmark' : 'Bookmark'} (
-                    {ourProductDetails && ourProductDetails.bookmarks.length})
+                    {ourProductDetails && ourProductDetails.bookmarks})
                   </button>
                 </div>
               </SecureContent>
@@ -157,12 +155,9 @@ const Details = () => {
           <SecureContent>
             <div>
               <h5>Make a Comment:</h5>
-              {console.log(ourProductDetails)}
               <Cm comments={ourProductDetails && ourProductDetails.comments} addComment={addComment}/>
-              <button className="btn btn-primary mt-2">Submit</button>
             </div>
           </SecureContent>
-          <h5 className="mt-3">Comments:</h5>
         </>
       )}
     </div>
