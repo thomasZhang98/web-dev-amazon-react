@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "../index.css";
 import SecureContent from "../../secure-content";
 import {useProfile} from "../../../contexts/profile-context";
+import Cm from "./comments";
 
 const api = axios.create({withCredentials: true})
 
@@ -37,8 +38,11 @@ const Details = () => {
     brand: "",
     price: "",
     feature_bullets: [],
-    bookmarks: 0
+    bookmarks: 0,
   });
+
+
+
 
   const fetchProductByAsinFromAmazon = async () => {
     const response = await axios(`${product_url}=${asin}`);
@@ -85,6 +89,44 @@ const Details = () => {
     await fetchUser();
   };
 
+  const handleOrder = async () => {
+    const product = {
+      asin: productDetails.asin,
+      title: productDetails.title,
+      brand: productDetails.brand,
+      image: productDetails.main_image.link,
+      price: productDetails.buybox_winner.price.value,
+      feature_bullets: productDetails.feature_bullets,
+      link: productDetails.link,
+    };
+
+    await api.post("http://localhost:4000/api/orders", product);
+    navigate('/')
+  }
+
+  const addComment = async (comment) => {
+      try {
+          const response = await api.post(`${nodejs_url}/addComment`,
+              {
+                  buyer_id: profile._id,
+                  userName: profile.userName,
+                  product_id: ourProductDetails.asin,
+                  comment: comment
+              })
+          const commentCard = {
+              comment: comment,
+              buyer_id: profile._id,
+              userName: profile.userName
+          }
+          ourProductDetails.comments.push(commentCard)
+          setOurProductDetails(ourProductDetails)
+      } catch (e) {
+          alert('oops')
+      }
+      console.log(ourProductDetails)
+      await fetchProductByAsinFromLocalAPI();
+  }
+
   return (
     <div className="mt-2">
       {productDetails === {} ? (
@@ -110,13 +152,17 @@ const Details = () => {
               <h5>${productDetails.buybox_winner.price.value}</h5>
               <SecureContent>
                 <div>
-                  <button className="btn btn-success">Make Order</button>
+                  <button className="btn btn-success" onClick={handleOrder}>
+                    Make Order
+                  </button>
                   <button
                     className="btn btn-primary ms-2"
                     onClick={handleBookmarks}
                   >
-                      {user && user.bookmarks.includes(asin) ? 'Unbookmark' : 'Bookmark'} (
-                    {ourProductDetails && ourProductDetails.bookmarks})
+                    {user && user.bookmarks.includes(asin)
+                      ? "Unbookmark"
+                      : "Bookmark"}{" "}
+                    ({ourProductDetails && ourProductDetails.bookmarks})
                   </button>
                 </div>
               </SecureContent>
@@ -132,14 +178,9 @@ const Details = () => {
           <SecureContent>
             <div>
               <h5>Make a Comment:</h5>
-              <textarea
-                placeholder={"Put down your comment"}
-                className="form-control"
-              ></textarea>
-              <button className="btn btn-primary mt-2">Submit</button>
+              <Cm comments={ourProductDetails && ourProductDetails.comments} addComment={addComment}/>
             </div>
           </SecureContent>
-          <h5 className="mt-3">Comments:</h5>
         </>
       )}
     </div>
