@@ -1,35 +1,20 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 const ProductItem = ({ product }) => {
   return (
     <li key={product._id} className="card my-2 p-2">
       <div className="row align-items-top">
-        <div className="col-3 wd-font-color d-none d-lg-block">
+        <div className="col-4 wd-font-color d-none d-lg-block">
           Product ID:
           <br />
           <b>{product.asin}</b>
         </div>
-        <div className="col-3 wd-font-color d-none d-lg-block">
+        <div className="col-4 wd-font-color">
           PRICE: <br />
           <b>{product.price}</b>
         </div>
-        <div className="col-4 wd-font-color d-lg-none">
-          PRICE: <br />
-          <b>{product.price}</b>
-        </div>
-        <div className="col-3 wd-font-color d-none d-lg-block">
-          RATING: <br />
-          <b>{product.rating}</b>
-        </div>
-        <div className="col-4 wd-font-color d-lg-none">
-          RATING: <br />
-          <b>{product.rating}</b>
-        </div>
-        <div className="col-3 wd-font-color d-none d-lg-block">
-          BOOKMARKS: <br />
-          <b>{product.bookmarks.size}</b>
-        </div>
-        <div className="col-4 wd-font-color d-lg-none">
+        <div className="col-4 wd-font-color ">
           BOOKMARKS: <br />
           <b>{product.bookmarks.size}</b>
         </div>
@@ -42,10 +27,10 @@ const ProductItem = ({ product }) => {
           </div>
           <div className="col-md-10 col-sm-8 ">
             <p className="wd-font-13 wd-margin-bot-0">
-              <b>{product.brand}</b>
+              <b><Link to={`/details/${product.asin}`}>{product.title}</Link></b>
             </p>
             <p className="wd-font-13 wd-margin-bot-0">
-              <b>{product.title}</b>
+              <span>brand: {product.brand}</span>
             </p>
           </div>
         </div>
